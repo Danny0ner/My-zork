@@ -1,6 +1,7 @@
 #include"World.h"
 #include<stdio.h>
 #include<string.h>
+#include <stdlib.h>
 
 
 World::World()
@@ -10,7 +11,7 @@ World::World()
 	exits = new Exit[11];
 }
 
-void World::CreateWorld() const
+void World::CreateWorld()
 {
 	int  i;
 	char *names[] = { "Cave", "Garden", "A kid's room", "temple", "frozen lake", "Beach", "Strange Roomm", "Videogames' shop", "wood house", "secret room 1", "secret room 2",};
@@ -42,4 +43,17 @@ World::~World()
 	delete[] rooms;
 	delete player;
 	delete[] exits;
+}
+
+void World::Command(){
+	char command[20];
+	printf("\n-");
+	gets_s(command);
+
+	if (strcmp("help", command) == 0){
+		printf("Move Commands: 'go north' or 'go n'  'go south' or 'go s'  'go west' or go w'  'go east' or 'go e'\nLook Commands: 'look'  'look north'  'look south'  'look west' 'look east'\nEnter 'quit' to exit.");
+	}
+	else if (strcmp("quit", command) == 0){
+		exit(0);
+	}
 }
