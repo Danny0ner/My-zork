@@ -29,5 +29,6 @@ public:
 	void MoveUp();
 	void LookUp();
 	void LookDown();
-
+	void OpenDoor();
+	void CloseDoor();
 };

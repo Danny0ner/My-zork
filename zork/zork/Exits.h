@@ -10,5 +10,6 @@ public:
 	char descriptionE[200];
 	char descriptionD[200];
 	char descriptionU[200];
+	int door = 1;
 
 };

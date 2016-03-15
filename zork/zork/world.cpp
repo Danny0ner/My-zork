@@ -51,7 +51,7 @@ void World::Command(){
 	gets_s(command);
 
 	if (strcmp("help", command) == 0){
-		printf("Move Commands: 'go north' or 'go n'  'go south' or 'go s'  'go west' or go w'  'go east' or 'go e'  'go down' or 'go d'  'go up' or 'go u'\nLook Commands: 'look'  'look north'  'look south'  'look west' 'look east'\nEnter 'quit' to exit.");
+		printf("Move Commands: 'go north' or 'go n'  'go south' or 'go s'  'go west' or go w'  'go east' or 'go e'  'go down' or 'go d'  'go up' or 'go u'\nLook Commands: 'look'  'look north' 'look n'  'look south' 'look s' 'look west' 'look w' 'look east' 'look e' 'look up' 'look down'\nEnter 'quit' to exit.");
 	}
 	else if (strcmp("quit", command) == 0){
 		exit(0);
@@ -101,21 +101,16 @@ void World::Command(){
 	else if (strcmp("go down", command) == 0){
 		MoveDown();
 	}
-	else if (strcmp("go d", command) == 0){
-		MoveDown();
+	else if (strcmp("go up", command) == 0){
+		MoveUp();
 	}
 	else if (strcmp("look up", command) == 0){
-		LookUp();
-	}
-	else if (strcmp("look u", command) == 0){
 		LookUp();
 	}
 	else if (strcmp("look down", command) == 0){
 		LookDown();
 	}
-	else if (strcmp("look d", command) == 0){
-		LookDown();
-	}
+	
 	else if (strcmp("look west", command) == 0){
 		LookWest();
 	}
@@ -127,6 +122,12 @@ void World::Command(){
 	}
 	else if (strcmp("look e", command) == 0){
 		LookEast();
+	}
+	else if (strcmp("open door", command) == 0){
+		OpenDoor();
+	}
+	else if (strcmp("close door", command) == 0){
+		CloseDoor();
 	}
 	else {
 		printf("enter your command again pls.\n");
@@ -277,10 +278,15 @@ void World::MoveSouth(){
 }
 
 void World::MoveWest(){
-	if (player[0].position == 0){ //from kid's room to wood house
-		player[0].position = 6;
-		printf("\n\t%s\n", (rooms[player[0].position].name));
-		printf("%s\n", (rooms[player[0].position].description));
+	if (player[0].position == 0){//from kid's room to wood house
+		if (exits[0].door == 0){
+			player[0].position = 6;
+			printf("\n\t%s\n", (rooms[player[0].position].name));
+			printf("%s\n", (rooms[player[0].position].description));
+		}
+		if (exits[0].door == 1){
+			printf("\nThe door is closed\n");
+		}
 	}
 	else if (player[0].position == 6){ //from cave to kid's room
 		player[0].position = 7;
@@ -311,7 +317,7 @@ void World::MoveEast(){
 	else if (player[0].position == 6){
 		player[0].position = 0;
 		printf("\n\t%s\n", (rooms[player[0].position].name));
-		printf("\n\t%s\n", (rooms[player[0].position].description));
+		printf("\n%s\n", (rooms[player[0].position].description));
 	}
 	else if (player[0].position == 0){
 		player[0].position = 2;
@@ -454,4 +460,43 @@ void World::LookWest(){
 		printf("nothing of interest there.\n");
 	}
 
+}
+void World::OpenDoor(){
+	if ((player[0].position == 0) && (exits[0].door == 1)){
+		printf("you opened the door");
+		exits[0].door = 0;
+	}
+	else if ((player[0].position == 6) && (exits[0].door == 1)){
+		printf("you opened the door");
+		exits[0].door = 0;
+	}
+	else if ((player[0].position == 0) && (exits[0].door == 0)){
+		printf("The door is already open");
+	}
+	else if ((player[0].position == 6) && (exits[0].door == 0)){
+		printf("The door is already open");
+	}
+	else {
+		printf("There's no door to open here");
+	}
+}
+
+void World::CloseDoor(){
+	if ((player[0].position == 0) && (exits[0].door == 0)){
+		printf("\nyou closed the door\n");
+		exits[0].door = 1;
+	}
+	else if ((player[0].position == 6) && (exits[0].door == 0)){
+		printf("\nyou closed the door\n");
+		exits[0].door = 1;
+	}
+	else if ((player[0].position == 0) && (exits[0].door == 1)){
+		printf("\nThe door is already closed\n");
+	}
+	else if ((player[0].position == 6) && (exits[0].door == 1)){
+		printf("\nThe door is already closed\n");
+	}
+	else {
+		printf("\nThere's no door to close here\n");
+	}
 }
