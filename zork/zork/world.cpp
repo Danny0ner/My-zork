@@ -62,6 +62,24 @@ void World::Command(){
 	else if (strcmp("go n", command) == 0){
 		MoveNorth();
 	}
+	else if (strcmp("go south", command) == 0){
+		MoveSouth();
+	}
+	else if (strcmp("go s", command) == 0){
+		MoveSouth();
+	}
+	else if (strcmp("go west", command) == 0){
+		MoveWest();
+	}
+	else if (strcmp("go w", command) == 0){
+		MoveWest();
+	}
+	else if (strcmp("go east", command) == 0){
+		MoveEast();
+	}
+	else if (strcmp("go e", command) == 0){
+		MoveEast();
+	}
 	else {
 		printf("enter your command again pls.");
 	}
@@ -203,5 +221,111 @@ void  World::MoveNorth(){
 		player[0].position = 5;
 		printf("\n%s\n\n", (rooms[player[0].position].name));
 		printf("%s\n", (rooms[player[0].position].description));
+	}
+	else if (player[0].position == 10){ //from secret room 2 to beach
+		player[0].position = 9;
+		printf("\n%s\n\n", (rooms[player[0].position].name));
+		printf("%s\n", (rooms[player[0].position].description));
+	}
+	else if (player[0].position == 9){ //from beach to frozen lake
+		player[0].position = 8;
+		printf("\n%s\n\n", (rooms[player[0].position].name));
+		printf("%s\n", (rooms[player[0].position].description));
+	}
+	else if (player[0].position == 8){ //from frozen lake to cave
+		player[0].position = 0;
+		printf("\n%s\n\n", (rooms[player[0].position].name));
+		printf("%s\n", (rooms[player[0].position].description));
+	}
+	else {
+		printf("there's no way to go in this direction.");
+	}
+}
+
+void World::MoveSouth(){
+	if (player[0].position == 5){ //from secret room 1 to videogames' shop
+		player[0].position = 4;
+		printf("\n%s\n\n", (rooms[player[0].position].name));
+		printf("%s\n", (rooms[player[0].position].description));
+	}
+	else if (player[0].position == 4){ //from videogames's shop to garden
+		player[0].position = 1;
+		printf("\n%s\n\n", (rooms[player[0].position].name));
+		printf("%s\n", (rooms[player[0].position].description));
+	}
+	else if (player[0].position == 1){ //from garden to cave
+		player[0].position = 0;
+		printf("\n%s\n\n", (rooms[player[0].position].name));
+		printf("%s\n", (rooms[player[0].position].description));
+	}
+	else if (player[0].position == 0){ //from cave to frozen lake
+		player[0].position = 8;
+		printf("\n%s\n\n", (rooms[player[0].position].name));
+		printf("%s\n", (rooms[player[0].position].description));
+	}
+	else if (player[0].position == 8){ //from frozen lake to beach
+		player[0].position = 9;
+		printf("\n%s\n\n", (rooms[player[0].position].name));
+		printf("%s\n", (rooms[player[0].position].description));
+	}
+	else if (player[0].position == 9){ //from beach to secret room 2
+		player[0].position = 10;
+		printf("\n%s\n\n", (rooms[player[0].position].name));
+		printf("%s\n", (rooms[player[0].position].description));
+	}
+	else {
+		printf("there's no way to go in this direction.");
+	}
+}
+
+void World::MoveWest(){
+	if (player[0].position == 0){ //from kid's room to wood house
+		player[0].position = 6;
+		printf("\n%s\n\n", (rooms[player[0].position].name));
+		printf("%s\n", (rooms[player[0].position].description));
+	}
+	else if (player[0].position == 6){ //from cave to kid's room
+		player[0].position = 7;
+		printf("\n%s\n\n", (rooms[player[0].position].name));
+		printf("%s\n", (rooms[player[0].position].description));
+	}
+	else if (player[0].position == 2){ //form temple to cave
+		player[0].position = 0;
+		printf("\n%s\n\n", (rooms[player[0].position].name));
+		printf("%s\n", (rooms[player[0].position].description));
+	}
+	else if (player[0].position == 3){ //from strange room to temple
+		player[0].position = 2;
+		printf("\n%s\n\n", (rooms[player[0].position].name));
+		printf("%s\n", (rooms[player[0].position].description));
+	}
+	else {
+		printf("there's no way to go in this direction.");
+	}
+}
+
+void World::MoveEast(){
+	if (player[0].position == 7){ //from strange room to temple
+		player[0].position = 6;
+		printf("\n%s\n\n", (rooms[player[0].position].name));
+		printf("%s\n", (rooms[player[0].position].description));
+	}
+	else if (player[0].position == 6){
+		player[0].position = 0;
+		printf("\n%s\n\n", (rooms[player[0].position].name));
+		printf("%s\n", (rooms[player[0].position].description));
+	}
+	else if (player[0].position == 0){
+		player[0].position = 2;
+		printf("\n%s\n\n", (rooms[player[0].position].name));
+		printf("%s\n", (rooms[player[0].position].description));
+	}
+	else if (player[0].position == 2){
+		player[0].position = 3;
+		printf("\n%s\n\n", (rooms[player[0].position].name));
+		printf("%s\n", (rooms[player[0].position].description));
+	}
+	else {
+		printf("there's no way to go in this direction.");
 	}
 }

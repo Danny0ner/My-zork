@@ -18,4 +18,7 @@ public:
 	void Command();
 	void CreateExits() const;
 	void MoveNorth();
+	void MoveSouth();
+	void MoveWest();
+	void MoveEast();
 };
