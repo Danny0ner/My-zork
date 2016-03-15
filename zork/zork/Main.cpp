@@ -11,7 +11,7 @@ int main()
 	printf("%s\n", map.rooms[0].name);
 	printf("%s", map.rooms[0].description);
 
-	while (int i = 0 < 10){
+	while (1){
 		map.Command();
 	}
 

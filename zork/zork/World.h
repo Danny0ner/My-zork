@@ -9,9 +9,12 @@ public:
 	Room* rooms = nullptr;
 	Player* player = nullptr;
 	Exit* exits = nullptr;
+public:
 
 	World();
 	~World();
-	void CreateWorld();
+public:
+	void CreateWorld() const;
 	void Command();
+	void CreateExits() const;
 };
