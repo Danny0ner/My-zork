@@ -6,7 +6,7 @@
 
 World::World()
 {
-	rooms = new Room[10];
+	rooms = new Room[11];
 	player = new Player;
 	exits = new Exit[40];
 }
@@ -14,25 +14,25 @@ World::World()
 void World::CreateWorld() const
 {
 	int  i;
-	char *names[] = { "Cave", "Garden", "A kid's room", "temple", "frozen lake", "Beach", "Strange Roomm", "Videogames' shop", "wood house", "secret room 1", "secret room 2",};
-	for (i = 0; i < 10; i++)
+	char *names[] = { "Cave", "Garden", "Temple", "Strange Room", "Videogames' shop", "Secret room 1", "A kid's room", "Wooden house", "Frozen Lake", "Beach", "Secret room 2",};
+	for (i = 0; i < 11; i++)
 	{
 		strcpy_s((rooms + i)->name, names[i]);
 	}
 	char *descriptions[] = {
 		"You can't see very much, but it seems to be an aquamarine cave. There you can see two weapones on the ground.",
 		"The garden is like the one on alice in wonderland, it has a lot of colors and seems to a good place to stay.",
+		"A big stone temple stands at you, it seems to have more than ten thousand years of antiquity.",
+		"at the moment that you enter on this room, you get scared, but you don't know why. You only know that you want to scape from there as fast as possible.",
+		"You always loved videogames, so this is like your paradise, you can see the shop assistant standing at the back of the shop. ",
+		"In the center of the room you can see a sphinx, it seems that want to talk with you.",
 		"This place seems like a kid's room, it has a lot of toys. This room also its a bit creepy.",
-		"a big stone temple stands at you, it seems to have more than ten thousand years of antiquity.",
+		"you enter in a wood hause that is exactly like the one of a book that you did read when you were a child.",
 		"You can see a enormous frozen lake that could kill you if you were inside it in like 5 seconds. You'll prefer to take care with it.",
 		"You arrive at the beach, the sun reinforces you, it helps you to recover your forces.",
-		"at the moment that you enter on this room, you get scared, but you don't know why. You only know that you want to scape from there as fast as possible.",
-		"You always loved videogames, so this is like your paradise, you can see the shop assistant standing at the back of the shop.",
-		"you enter in a wood hause that is exactly like the one of a book that you did read when you were a child.",
-		"In the center of the room you can see a sphinx, it seems that want to talk with you.",
 		"In the center of the room you can see a sphinx, it seems that want to talk with you.",
 	};
-	for (i = 0; i < 10; i++)
+	for (i = 0; i < 11; i++)
 	{
 		strcpy_s((rooms + i)->description, descriptions[i]);
 	}
@@ -55,6 +55,12 @@ void World::Command(){
 	}
 	else if (strcmp("quit", command) == 0){
 		exit(0);
+	}
+	else if (strcmp("go north", command) == 0){
+		MoveNorth();
+	}
+	else if (strcmp("go n", command) == 0){
+		MoveNorth();
 	}
 	else {
 		printf("enter your command again pls.");
@@ -181,4 +187,21 @@ void World::CreateExits() const{
 	exits[10].origen = &rooms[10];
 	exits[10].destination = &rooms[9];
 	exits[10].direction = north;
+}
+void  World::MoveNorth(){
+	if (player[0].position == 0){ //go from cave to ggarden
+		player[0].position = 1;
+		printf("\n%s\n\n", (rooms[player[0].position].name));
+		printf("%s\n", (rooms[player[0].position].description));
+	}
+	else if (player[0].position == 1){ //from garden to videogames shop
+		player[0].position = 4;
+		printf("\n%s\n\n", (rooms[player[0].position].name));
+		printf("%s\n", (rooms[player[0].position].description));
+	}
+	else if (player[0].position == 4){ //from videogames shop to secret room 1
+		player[0].position = 5;
+		printf("\n%s\n\n", (rooms[player[0].position].name));
+		printf("%s\n", (rooms[player[0].position].description));
+	}
 }

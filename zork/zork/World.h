@@ -17,4 +17,5 @@ public:
 	void CreateWorld() const;
 	void Command();
 	void CreateExits() const;
+	void MoveNorth();
 };
