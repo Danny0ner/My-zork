@@ -4,9 +4,11 @@ class Exit
 {
 public:
 	char name[20];
-	char description[200];
-	directions direction;
-	Room* origen;
-	Room* destination;
+	char descriptionN[200];
+	char descriptionS[200];
+	char descriptionW[200];
+	char descriptionE[200];
+	char descriptionD[200];
+	char descriptionU[200];
 
 };

@@ -21,4 +21,13 @@ public:
 	void MoveSouth();
 	void MoveWest();
 	void MoveEast();
+	void LookNorth();
+	void LookSouth();
+	void LookEast();
+	void LookWest();
+	void MoveDown();
+	void MoveUp();
+	void LookUp();
+	void LookDown();
+
 };
