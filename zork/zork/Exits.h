@@ -1,4 +1,4 @@
-enum directions {north, south, west, east};
+enum directions { north, south, west, east };
 
 class Exit
 {
