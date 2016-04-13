@@ -7,11 +7,8 @@ int main()
 	World map;
 	map.CreateWorld();
 	map.CreateExits();
-	printf("\t\tWelcome to my zork!!!\n\n");
-	printf("Press help anytime you want to see the commands. Enjoy!!\n\n");
-	printf("\t%s\n", map.rooms[0].name);
-	printf("\n%s\n", map.rooms[0].description);
-
+	printf("\t\t\tWelcome to my zork!!!\n\n");
+	printf("Press help anytime you want to see the commands. Enjoy!!<3<3\n\n");
 	while (1){
 		map.Command();
 	}

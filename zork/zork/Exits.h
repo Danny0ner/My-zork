@@ -1,15 +1,19 @@
-enum directions { north, south, west, east };
+#ifndef _EXITS_
+#define _EXITS_
+#include "room.h"
 
-class Exit
+enum directions { north, south, west, east, up, down };
+enum locked {open, close};
+class Exit : public Entity
 {
 public:
 	char name[20];
-	char descriptionN[200];
-	char descriptionS[200];
-	char descriptionW[200];
-	char descriptionE[200];
-	char descriptionD[200];
-	char descriptionU[200];
+	char description[200];
+	Room* origin;
+	Room* destination;
+	directions direction;
 	int door = 1;
+	locked lock;
 
 };
+#endif

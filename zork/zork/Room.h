@@ -1,3 +1,5 @@
+#ifndef _ROOMS_
+#define _ROOMS_
 class Room
 {
 public:
@@ -6,3 +8,4 @@ public:
 	char description[200];
 	char direction;
 };
+#endif
