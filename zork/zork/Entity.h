@@ -19,7 +19,15 @@ public:
 	{}
 
 	virtual ~Entity(){};
+	string Get_Name() const
+	{
+		return name;
+	}
 
+	string Get_Description()const
+	{
+		return description;
+	}
 
 public:
 	EntityType type;

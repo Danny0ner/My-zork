@@ -7,14 +7,17 @@ enum locked {open, close};
 class Exit : public Entity
 {
 public:
-	Room* src; //source room
-	Room* dst; //destination room
+	Room* origin; //source room
+	Room* destination; //destination room
 	bool door = false; //indicates if an exits has a door to open/close
 	bool open = true; //indicates if an exit is opened or closed
 	directions direction;
 
+	directions getdirection(){
+		return direction;
+	}
 	Exit(const char* name, const char* descrip, Room* source, Room* dest, directions direct, bool d, bool o) : Entity(name, descrip),
-		src(source), dst(dest), direction(direct), door(d), open(o){}
+		origin(source), destination(dest), direction(direct), door(d), open(o){}
 
 };
 #endif

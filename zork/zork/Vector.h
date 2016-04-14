@@ -90,7 +90,6 @@ public:
 
 	const TYPE &operator[](const uint &index) const
 	{
-		assert(index >= 0 && index < n_elements);
 		return vector[index];
 	}
 
