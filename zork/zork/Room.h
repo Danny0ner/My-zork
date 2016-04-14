@@ -1,11 +1,16 @@
 #ifndef _ROOMS_
-#define _ROOMS_
-class Room
+#define  _ROOMS_
+
+#include"Entity.h"
+
+class Room :public Entity
 {
 public:
+	Room(const char* name, const char* descrip) :Entity(name, descrip){}
+	//~Room();
 
-	char name[25];
-	char description[200];
-	char direction;
+	void Look()const;
+
 };
+
 #endif

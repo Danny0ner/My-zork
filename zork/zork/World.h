@@ -1,20 +1,26 @@
+#ifndef _WORLD_
+#define _WORLD_
 #include"Room.h"
-#include"Player.h"
+#include"player.h"
 #include"Exits.h"
 
-class World : public Entity
+#include"Entity.h"
+#include"My string.h"
+#include"items.h"
+#include"vector.h"
+
+class World
 {
 public:
+	Vector<Room*> rooms;
+	Vector<Exit*> exits;
+	Vector<Item*> items;
 
-	vector<Room>* rooms = nullptr;
 	Player* player = nullptr;
-	Exit* exits = nullptr;
 public:
-
 	World();
 	~World();
-public:
-	void CreateWorld() const;
-	void Command() const;
-	void CreateExits() const;
+	void CreateWorld();
+	void Command();
 };
+#endif

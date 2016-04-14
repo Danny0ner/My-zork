@@ -1,75 +1,145 @@
-#include <stdio.h>
-#define uint unsigned int
+#ifndef _vector_
+#define _vector_
 
-template <class TYPE>
-class vector {
-private:
-	TYPE* buffer;
-	uint capacity = 10;
-	uint num_elements = 0;
+#include<assert.h>
+
+
+typedef unsigned int uint;
+
+template<class TYPE>
+class Vector
+{
+public:
+
+	TYPE *vector = nullptr;
+	uint max_size = 2;
+	uint n_elements = 0;
 
 public:
-	vector(){
-		buffer = new TYPE[capacity];
-		printf("por defecto\n");
-	};
-	vector(const vector& vector) : capacity(vector.capacity), num_elements(vector.num_elements){
-		buffer = new TYPE[vector.capacity];
-		for (uint i = 0; i < num_elements; i++) buffer[i] = vector.buffer[i];
-		printf("de copia\n");
-	};
-	~vector(){
-		delete[] buffer;
-	};
-	void pushback(const TYPE &elem){
 
-		if (capacity == num_elements){
-			TYPE* temp;
-			capacity = capacity + 5;
-			temp = new TYPE[capacity];
-			for (uint i = 0; i < num_elements; i++) temp[i] = buffer[i];
-			delete[] buffer;
-			buffer = new TYPE[capacity];
-			buffer = temp;
-		}
-		else buffer[num_elements++] = elem;
-	};
-	void pushfront(const TYPE &elem){
+	Vector()
+	{
+		vector = new TYPE[max_size];
+	}
 
-		if (capacity == num_elements){
-			TYPE * temp;
-			capacity = capacity + 5;
-			temp = new TYPE[capacity];
-			uint y = 1;
-			for (uint i = 0; i < num_elements; i++)  temp[y++] = buffer[i];
-			delete[] buffer;
-			buffer = new TYPE[capacity];
-			temp[0] = elem;
-			buffer = temp;
+	Vector(const Vector &other)
+	{
+		max_size = other.n_elements;
+		vector = new TYPE[max_size];
+		if (other.n_elements > 0)
+		{
+			n_elements = other.n_elements;
+			for (int i = 0; i < n_elements; i++)
+			{
+				*(vector + i) = *(other.vector + i);
+			}
 		}
-		else{
-			TYPE * temp;
-			uint y = num_elements - 1;
-			temp = buffer;
-			for (int i = num_elements; i > 0; i--)  buffer[i] = temp[y--];
-			buffer[0] = elem;
+	}
+
+	void pushback(const TYPE &element)
+	{
+
+		if (max_size == n_elements)
+		{
+			TYPE *temp = nullptr;
+			max_size += 5;
+			temp = new TYPE[max_size];
+
+			for (int i = 0; i < n_elements; i++)
+			{
+				*(temp + i) = *(vector + i);
+			}
+			delete[] vector;
+			vector = temp;
 		}
-		num_elements++;
-	};
-	bool empty() const{
-		return buffer[0] == '\0';
-	};
-	void clear(){
-		buffer[0] = '\0';
-		num_elements = 0;
-	};
-	uint Get_capacity() const {
-		return capacity;
-	};
-	uint Getsize() const{
-		return num_elements;
-	};
-	void popback(){
-	};
+
+		*(vector + n_elements++) = element;
+	}
+
+	void push_front(const TYPE &element)
+	{
+
+		if (max_size == n_elements)
+		{
+			TYPE *temp = nullptr;
+			max_size += 5;
+			temp = new TYPE[max_size];
+
+			for (int i = 0; i < n_elements; i++)
+			{
+				*(temp + i) = *(vector + i);
+			}
+			delete[] vector;
+			vector = temp;
+		}
+
+		for (int i = n_elements - 1; i >= 0; i--)
+		{
+			*(vector + i + 1) = *(vector + i);
+		}
+
+		*(vector) = element;
+		n_elements++;
+	}
+
+	~Vector()
+	{
+		printf("DESTRUCTOR\n");
+		delete[] vector;
+	}
+
+	const TYPE &operator[](const uint &index) const
+	{
+		assert(index >= 0 && index < n_elements);
+		return vector[index];
+	}
+
+	bool empty() const
+	{
+		return n_elements == 0;
+	}
+
+	void clear()
+	{
+		n_elements = 0;
+	}
+
+	uint size() const
+	{
+		return n_elements;
+	}
+
+	uint capacity()const
+	{
+		return max_size;
+	}
+
+	void shrink_to_fit()
+	{
+		if (max_size != n_elements)
+		{
+			TYPE *temp = nullptr;
+			max_size = n_elements;
+			temp = new TYPE[max_size];
+			for (int i = 0; i < max_size; i++)
+			{
+				temp[i] = vector[i];
+			}
+			delete[]vector;
+			vector = temp;
+		}
+	}
+
+	void pop_back()
+	{
+		if (n_elements > 0)
+		{
+			n_elements--;
+		}
+	}
 
 };
+
+
+
+#endif

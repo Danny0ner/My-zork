@@ -3,26 +3,30 @@
 #include "My string.h"
 #include "Vector.h"
 
-enum EntityType{
-	ENtity,
+enum EntityType
+{
+	ENTITY,
 	ROOM,
 	EXIT,
 	ITEM,
-	PLAYER,
+	CREATURE,
+	PLAYER
 };
 
 class Entity {
 public:
-	Entity* Type;
-	EntityType EnType;
+	Entity(const char* name, const char *desc) : name(name), description(desc)
+	{}
+
+	virtual ~Entity(){};
+
+
+public:
+	EntityType type;
 	string name;
 	string description;
-	vector<Entity*> buffer;
-public:
-	Entity(const char* name, const char* description, Entity* Type) : name(name), description(description), Type(Type){
-		EnType = ENtity;
-		if (Type != NULL) Type->buffer.pushback(this);
-	};
-	virtual ~Entity(){};
+
+	Entity* parent;
+	Vector<Entity*> container;
 };
 #endif

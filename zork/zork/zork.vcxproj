@@ -64,6 +64,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Items.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Vector.cpp" />
     <ClCompile Include="world.cpp" />
@@ -71,6 +72,7 @@
   <ItemGroup>
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Exits.h" />
+    <ClInclude Include="Items.h" />
     <ClInclude Include="My string.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Room.h" />

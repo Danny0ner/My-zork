@@ -4,53 +4,54 @@
 #include "Vector.h"
 #include "My string.h"
 #include "Entity.h"
+#include "Player.h"
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#define Rooms 11
-#define Exits 20
 
 World::World()
 {
-	rooms = new vector<Room>[Rooms];
 	player = new Player;
-	exits = new Exit[Exits];
 }
+void World::CreateWorld(){
+	rooms.pushback(new Room("Cave", " You can't see very much, but it seems to be an aquamarine cave. There you can see two weapones on the ground."));
+	rooms.pushback(new Room("Garden", "The garden is like the one on alice in wonderland, it has a lot of colors and seems to a good place to stay."));
+	rooms.pushback(new Room("Temple", "A big stone temple stands at you, it seems to have more than ten thousand years of antiquity."));
+	rooms.pushback(new Room("Strange Room", "at the moment that you enter on this room, you get scared, but you don't know why. You only know that you want to scape from there as fast as possible."));
+	rooms.pushback(new Room("Videogames' shop", "You always loved videogames, so this is like your paradise, you can see the shop assistant standing at the back of the shop. "));
+	rooms.pushback(new Room("Secret Room 1", "In the center of the room you can see a sphinx, it seems that want to talk with you."));
+	rooms.pushback(new Room("A Kid's Room", "This place seems like a kid's room, it has a lot of toys. This room also its a bit creepy."));
+	rooms.pushback(new Room("Wooden house", "you enter in a wood hause that is exactly like the one of a book that you did read when you were a child."));
+	rooms.pushback(new Room("Frozen Lake", "You can see a enormous frozen lake that could kill you if you were inside it in like 5 seconds.You'll prefer to take care with it."));
+	rooms.pushback(new Room("Beach", "You arrive at the beach, the sun reinforces you, it helps you to recover your forces.You can see a trapdoor under your feet."));
+	rooms.pushback(new Room("Secret Room 2", "In the center of the room you can see a sphinx, it seems that want to talk with you."));
 
-void World::CreateWorld() const
-{   
-	vector<Room>* roomss;
-	int  i;
-	char *names[] = { "Cave", "Garden", "Temple", "Strange Room", "Videogames' shop", "Secret room 1", "A kid's room", "Wooden house", "Frozen Lake", "Beach", "Secret room 2", };
-
-	for (int i = 0; i < Rooms; i++) {
-		strcpy(rooms[i].name, names[i]);
-	}
-	char *descriptions[] = {
-		"You can't see very much, but it seems to be an aquamarine cave. There you can see two weapones on the ground.",
-		"The garden is like the one on alice in wonderland, it has a lot of colors and seems to a good place to stay.",
-		"A big stone temple stands at you, it seems to have more than ten thousand years of antiquity.",
-		"at the moment that you enter on this room, you get scared, but you don't know why. You only know that you want to scape from there as fast as possible.",
-		"You always loved videogames, so this is like your paradise, you can see the shop assistant standing at the back of the shop. ",
-		"In the center of the room you can see a sphinx, it seems that want to talk with you.",
-		"This place seems like a kid's room, it has a lot of toys. This room also its a bit creepy.",
-		"you enter in a wood hause that is exactly like the one of a book that you did read when you were a child.",
-		"You can see a enormous frozen lake that could kill you if you were inside it in like 5 seconds. You'll prefer to take care with it.",
-		"You arrive at the beach, the sun reinforces you, it helps you to recover your forces. You can see a trapdoor under your feet.",
-		"In the center of the room you can see a sphinx, it seems that want to talk with you.",
-	};
-	for (int i = 0; i < Rooms; i++) {
-		strcpy_s(rooms[i].description, descriptions[i]);
-	}
+	exits.pushback(new Exit("Cave", "You can see a door that enters into darkness.", rooms[1], rooms[0], south, false, true));
+	exits.pushback(new Exit("Cave", "You can see a cave.", rooms[2], rooms[0], west, false, true));
+	exits.pushback(new Exit("Cave", "The door goes to the cave.", rooms[6], rooms[0], east, false, true));
+	exits.pushback(new Exit("Cave", "You can see the entrance of a cave.", rooms[8], rooms[0], north, false, true));
+	exits.pushback(new Exit("Garden", "You can see a door at the end. The sun enters through the door.", rooms[0], rooms[1], north, false, true));
+	exits.pushback(new Exit("Garden", "at the entrance of the shop you can see a garden.", rooms[4], rooms[1], north, false, true));
+	exits.pushback(new Exit("Videogames' Shop", "At the end of the garden you can see a videogames' shop.", rooms[1], rooms[4], north, false, true));
+	exits.pushback(new Exit("Videogames' Shop", "The stairs go down to the videogames' Shop.", rooms[5], rooms[4], down, false, true));
+	exits.pushback(new Exit("Secret Room 1", "You can see a stairs that go up to the attic.", rooms[4], rooms[5], up, false, true));
+	exits.pushback(new Exit("Temple", "you can see light at the end of the path.", rooms[0], rooms[2], east, false, true));
+	exits.pushback(new Exit("Temple", "there's a door to exit this room.", rooms[3], rooms[2], west, false, true));
+	exits.pushback(new Exit("Strange Room", "There's a strange door right there.", rooms[2], rooms[3], east, false, true));
+	exits.pushback(new Exit("A Kid's Room", "There's a colored door right there.", rooms[0], rooms[6], west, false, true));
+	exits.pushback(new Exit("A Kid's Room", "The door is colored like if it was made by a kid.", rooms[7], rooms[6], east, false, true));
+	exits.pushback(new Exit("wooden House", "You can see a wooden door behind a wardrove.", rooms[6], rooms[7], west, false, true));
+	exits.pushback(new Exit("Frozen Lake", "An invernal wind comes from that exit.", rooms[0], rooms[8], south, false, true));
+	exits.pushback(new Exit("Frozen Lake", "in the distance you can see a forzen lake", rooms[9], rooms[8], north, false, true));
+	exits.pushback(new Exit("Beach", "you can see a beach in the distance", rooms[8], rooms[9], south, false, true));
+	exits.pushback(new Exit("Beach", "The stairs goes back to the beach.", rooms[10], rooms[9], up, false, true));
+	exits.pushback(new Exit("Secret Room 2", "There is a trapdoor under your feet. Seems that you can go for there.", rooms[9], rooms[10], down, false, true));
 }
 
 World::~World()
-{
-	delete[] rooms;
-	delete player;
-	delete[] exits;
-}
+{}
 
+/*
 void World::Command() const{
 
 	player[0].position = &rooms[0];
@@ -70,234 +71,234 @@ void World::Command() const{
 			first = strtok_s(command, " ", &help);
 		} while (first == NULL);
 		second = strtok_s(NULL, " ", &help);
-			if (strcmp(command, "help") == 0 || strcmp(command, "HELP") == 0 || strcmp(command, "Help") == 0)
+		if (strcmp(command, "help") == 0 || strcmp(command, "HELP") == 0 || strcmp(command, "Help") == 0)
+		{
+			printf("Hi, and Wellcome to my zork\n\nComands:\n\n'help' for show this help again\n 'go' and a direction to move around the map.\n'look' for receive the description of the room\n'open' for open a doors and other stuff\n'close' for close a door or other stuff\n'quit' for quite the game\n\n");
+
+		}
+		//-------------------------------------------------------------------------------------------//
+		else if (strcmp(command, "go") == 0 || strcmp(command, "Go") == 0 || strcmp(command, "GO") == 0)
+		{
+
+			if (second == NULL){
+				printf("Writte a right command please ( 'GO' 'Direction'?");   //if the player do not writte a second word, the program will ask again
+			}
+			else if (strcmp(second, "north") == 0 || strcmp(second, "n") == 0 || strcmp(second, "N") == 0 || strcmp(second, "NORTH") == 0 || strcmp(second, "North") == 0){
+				for (i = 0; i <= Exits; i++)
+				{
+					if ((exits[i].direction == north) && (exits[i].origin == (player[0].position)))
+					{
+
+
+						printf("\n\t%s\n%s\n", exits[i].name, exits[i].description);
+						(player[0].position) = (exits[i].destination);
+						strcpy_s(player[0].description, exits[i].description);
+						break;
+					}
+					if (i == Exits && exits[i].origin != player[0].position){
+						printf("\n>There's no way there\n");
+
+					}
+				}
+
+			}
+			else if (strcmp(second, "south") == 0 || strcmp(second, "s") == 0 || strcmp(second, "S") == 0 || strcmp(second, "SOUTH") == 0 || strcmp(second, "South") == 0){
+				for (i = 0; i <= Exits; i++)
+				{
+					if ((exits[i].direction == south) && (exits[i].origin == (player[0].position)))
+					{
+
+						printf("\n\t%s\n%s\n", exits[i].name, exits[i].description);
+						(player[0].position) = (exits[i].destination);
+						strcpy_s(player[0].description, exits[i].description);
+						break;
+					}
+					if (i == Exits && exits[i].origin != player[0].position){
+						printf("\n>There's no way there\n");
+						break;
+					}
+				}
+			}
+
+			else if (strcmp(second, "west") == 0 || strcmp(second, "w") == 0 || strcmp(second, "W") == 0 || strcmp(second, "WEST") == 0 || strcmp(second, "West") == 0){
+				for (i = 0; i <= Exits; i++)
+				{
+					if ((exits[i].direction == west) && (exits[i].origin == (player[0].position)))
+					{
+
+						printf("\n\t%s\n%s\n", exits[i].name, exits[i].description);
+						(player[0].position) = (exits[i].destination);
+						strcpy_s(player[0].description, exits[i].description);
+						break;
+					}
+
+				}
+			}
+			else if (strcmp(second, "east") == 0 || strcmp(second, "e") == 0 || strcmp(second, "E") == 0 || strcmp(second, "EAST") == 0 || strcmp(second, "East") == 0)
 			{
-				printf("Hi, and Wellcome to my zork\n\nComands:\n\n'help' for show this help again\n 'go' and a direction to move around the map.\n'look' for receive the description of the room\n'open' for open a doors and other stuff\n'close' for close a door or other stuff\n'quit' for quite the game\n\n");
+				for (i = 0; i <= Exits; i++)
+				{
+					if ((exits[i].direction == east) && (exits[i].origin == (player[0].position)))
+					{
+						printf("\n\t%s\n%s\n", exits[i].name, exits[i].description);
+						(player[0].position) = (exits[i].destination);
+						strcpy_s(player[0].description, exits[i].description);
+						break;
+					}if (i == Exits && exits[i].origin != player[0].position){
+						printf("\n>There's no way there\n");
+						break;
+					}
+
+				}
 
 			}
-			//-------------------------------------------------------------------------------------------//
-			else if (strcmp(command, "go") == 0 || strcmp(command, "Go") == 0 || strcmp(command, "GO") == 0)
+
+			else if (strcmp(second, "up") == 0 || strcmp(second, "UP") == 0)
 			{
-
-				if (second == NULL){
-					printf("Writte a right command please ( 'GO' 'Direction'?");   //if the player do not writte a second word, the program will ask again
-				}
-				else if (strcmp(second, "north") == 0 || strcmp(second, "n") == 0 || strcmp(second, "N") == 0 || strcmp(second, "NORTH") == 0 || strcmp(second, "North") == 0){
-					for (i = 0; i <= Exits; i++)
-					{
-						if ((exits[i].direction == north) && (exits[i].origin == (player[0].position)))
-						{
-
-
-							printf("\n\t%s\n%s\n", exits[i].name, exits[i].description);
-							(player[0].position) = (exits[i].destination);
-							strcpy_s(player[0].description, exits[i].description);
-							break;
-						}
-						if (i == Exits && exits[i].origin != player[0].position){
-							printf("\n>There's no way there\n");
-
-						}
-					}
-
-				}
-				else if (strcmp(second, "south") == 0 || strcmp(second, "s") == 0 || strcmp(second, "S") == 0 || strcmp(second, "SOUTH") == 0 || strcmp(second, "South") == 0){
-					for (i = 0; i <= Exits; i++)
-					{
-						if ((exits[i].direction == south) && (exits[i].origin == (player[0].position)))
-						{
-
-							printf("\n\t%s\n%s\n", exits[i].name, exits[i].description);
-							(player[0].position) = (exits[i].destination);
-							strcpy_s(player[0].description, exits[i].description);
-							break;
-						}
-						if (i == Exits && exits[i].origin != player[0].position){
-							printf("\n>There's no way there\n");
-							break;
-						}
-					}
-				}
-
-				else if (strcmp(second, "west") == 0 || strcmp(second, "w") == 0 || strcmp(second, "W") == 0 || strcmp(second, "WEST") == 0 || strcmp(second, "West") == 0){
-					for (i = 0; i <= Exits; i++)
-					{
-						if ((exits[i].direction == west) && (exits[i].origin == (player[0].position)))
-						{
-
-							printf("\n\t%s\n%s\n", exits[i].name, exits[i].description);
-							(player[0].position) = (exits[i].destination);
-							strcpy_s(player[0].description, exits[i].description);
-							break;
-						}
-
-					}
-				}
-				else if (strcmp(second, "east") == 0 || strcmp(second, "e") == 0 || strcmp(second, "E") == 0 || strcmp(second, "EAST") == 0 || strcmp(second, "East") == 0)
+				for (i = 0; i <= Exits; i++)
 				{
-					for (i = 0; i <= Exits; i++)
+					if ((exits[i].direction == up) && (exits[i].origin == (player[0].position)))
 					{
-						if ((exits[i].direction == east) && (exits[i].origin == (player[0].position)))
-						{
-							printf("\n\t%s\n%s\n", exits[i].name, exits[i].description);
-							(player[0].position) = (exits[i].destination);
-							strcpy_s(player[0].description, exits[i].description);
-							break;
-						}if (i == Exits && exits[i].origin != player[0].position){
-							printf("\n>There's no way there\n");
-							break;
-						}
-
+						printf("\n\t%s\n%s\n", exits[i].name, exits[i].description);
+						(player[0].position) = (exits[i].destination);
+						strcpy_s(player[0].description, exits[i].description);
+						break;
+					}if (i == Exits && exits[i].origin != player[0].position){
+						printf("\n>There's no way there\n");
+						break;
 					}
 
 				}
 
-				else if (strcmp(second, "up") == 0 || strcmp(second, "UP") == 0) 
+			}
+			else if (strcmp(second, "down") == 0 || strcmp(second, "DOWN") == 0 || strcmp(second, "Down"))
+			{
+				for (i = 0; i <= Exits; i++)
 				{
-					for (i = 0; i <= Exits; i++)
+					if ((exits[i].direction == down) && (exits[i].origin == (player[0].position)))
 					{
-						if ((exits[i].direction == up) && (exits[i].origin == (player[0].position)))
-						{
-							printf("\n\t%s\n%s\n", exits[i].name, exits[i].description);
-							(player[0].position) = (exits[i].destination);
-							strcpy_s(player[0].description, exits[i].description);
-							break;
-						}if (i == Exits && exits[i].origin != player[0].position){
-							printf("\n>There's no way there\n");
-							break;
-						}
-
+						printf("\n\t%s\n%s\n", exits[i].name, exits[i].description);
+						(player[0].position) = (exits[i].destination);
+						strcpy_s(player[0].description, exits[i].description);
+						break;
+					}if (i == Exits && exits[i].origin != player[0].position){
+						printf("\n>There's no way there\n");
+						break;
 					}
 
-				}
-				else if (strcmp(second, "down") == 0 || strcmp(second, "DOWN") == 0 || strcmp(second, "Down"))
-				{
-					for (i = 0; i <= Exits; i++)
-					{
-						if ((exits[i].direction == down) && (exits[i].origin == (player[0].position)))
-						{
-							printf("\n\t%s\n%s\n", exits[i].name, exits[i].description);
-							(player[0].position) = (exits[i].destination);
-							strcpy_s(player[0].description, exits[i].description);
-							break;
-						}if (i == Exits && exits[i].origin != player[0].position){
-							printf("\n>There's no way there\n");
-							break;
-						}
-
-					}
-
-				}
-
-				else {
-					printf("\n>There's no way there\n"); break;
 				}
 
 			}
 
+			else {
+				printf("\n>There's no way there\n"); break;
+			}
 
-			//------------------------------------------------------------------------------------//
-			else if (strcmp(command, "look") == 0 || strcmp(command, "LOOK") == 0 || strcmp(command, "Look") == 0) {
+		}
 
-				printf("\n%s\n", player[0].description);
+
+		//------------------------------------------------------------------------------------//
+		else if (strcmp(command, "look") == 0 || strcmp(command, "LOOK") == 0 || strcmp(command, "Look") == 0) {
+
+			printf("\n%s\n", player[0].description);
+
+		}
+		//------------------------------------------------------------------------------------//
+		else if (strcmp(command, "open") == 0 || strcmp(command, "OPEN") == 0 || strcmp(command, "Open") == 0){
+			if (second == NULL){
+				printf("Writte a right command please ( 'Open' 'Direction'?");
+			}
+			else if (strcmp(second, "north") == 0 || strcmp(second, "North") == 0 || strcmp(second, "N") == 0 || strcmp(second, "n") == 0){
+
+				for (i = 0; i < Exits; i++)
+				{
+					if ((exits[i].direction == north) && (exits[i].lock == close) && (exits[i].origin == (player[0].position)))
+					{
+						exits[i].lock = open;
+						printf("\n You open the North Door\n");
+						break;
+					}
+					else if ((exits[i].direction == north) && (exits[i].lock == open) && (exits[i].origin == (player[0].position))){
+						printf("\n>This door is already open\n");
+					}
+					else if ((exits[i].direction == north) && (exits[i].origin == (player[0].position))){
+						printf("\n>You can't open this door\n"); break;
+
+					}
+				}
 
 			}
-			//------------------------------------------------------------------------------------//
-			else if (strcmp(command, "open") == 0 || strcmp(command, "OPEN") == 0 || strcmp(command, "Open") == 0){
-				if (second == NULL){
-					printf("Writte a right command please ( 'Open' 'Direction'?");
-				}
-				else if (strcmp(second, "north") == 0 || strcmp(second, "North") == 0 || strcmp(second, "N") == 0 || strcmp(second, "n") == 0){
+			else if (strcmp(second, "south") == 0 || strcmp(second, "South") == 0 || strcmp(second, "S") == 0 || strcmp(second, "s") == 0){
 
-					for (i = 0; i < Exits; i++)
+				for (i = 0; i < Exits; i++)
+				{
+					if ((exits[i].direction == south) && (exits[i].lock == close) && (exits[i].origin == (player[0].position)))
 					{
-						if ((exits[i].direction == north) && (exits[i].lock == close) && (exits[i].origin == (player[0].position)))
-						{
-							exits[i].lock = open;
-							printf("\n You open the North Door\n");
-							break;
-						}
-						else if ((exits[i].direction == north) && (exits[i].lock == open) && (exits[i].origin == (player[0].position))){
-							printf("\n>This door is already open\n");
-						}
-						else if ((exits[i].direction == north) && (exits[i].origin == (player[0].position))){
-							printf("\n>You can't open this door\n"); break;
-
-						}
+						exits[i].lock = open;
+						printf("\n You open the South Door\n");
+						break;
 					}
-
-				}
-				else if (strcmp(second, "south") == 0 || strcmp(second, "South") == 0 || strcmp(second, "S") == 0 || strcmp(second, "s") == 0){
-
-					for (i = 0; i < Exits; i++)
-					{
-						if ((exits[i].direction == south) && (exits[i].lock == close) && (exits[i].origin == (player[0].position)))
-						{
-							exits[i].lock = open;
-							printf("\n You open the South Door\n");
-							break;
-						}
-						else if ((exits[i].direction == south) && (exits[i].lock == open) && (exits[i].origin == (player[0].position))){
-							printf("\n>This door is already open\n");
-						}
-						else if ((exits[i].direction == south) && (exits[i].origin == (player[0].position))){
-							printf("\n>You can't open this door\n"); break;
-
-						}
+					else if ((exits[i].direction == south) && (exits[i].lock == open) && (exits[i].origin == (player[0].position))){
+						printf("\n>This door is already open\n");
 					}
+					else if ((exits[i].direction == south) && (exits[i].origin == (player[0].position))){
+						printf("\n>You can't open this door\n"); break;
 
-				}
-			}
-			//--------------------------------------------------------------------//
-			else if (strcmp(command, "close") == 0 || strcmp(command, "CLOSE") == 0 || strcmp(command, "close") == 0){
-				if (second == NULL){
-					printf("Writte a right command please ( 'close' 'Direction'?");
-				}
-				else if (strcmp(second, "north") == 0 || strcmp(second, "North") == 0 || strcmp(second, "N") == 0 || strcmp(second, "n") == 0){
-
-					for (i = 0; i < Exits; i++)
-					{
-						if ((exits[i].direction == north) && (exits[i].lock == open) && (exits[i].origin == (player[0].position)))
-						{
-							exits[i].lock = close;
-							printf("\n You close the North Door\n");
-							break;
-						}
-						else if ((exits[i].direction == north) && (exits[i].lock == close) && (exits[i].origin == (player[0].position))){
-							printf("\n>This door is already closed\n");
-						}
-						else if ((exits[i].direction == north) && (exits[i].origin == (player[0].position))){
-							printf("\n>You can't close this door\n"); break;
-
-						}
 					}
-
 				}
-				else if (strcmp(second, "south") == 0 || strcmp(second, "South") == 0 || strcmp(second, "S") == 0 || strcmp(second, "s") == 0){
 
-					for (i = 0; i < Exits; i++)
-					{
-						if ((exits[i].direction == south) && (exits[i].lock == open) && (exits[i].origin == (player[0].position)))
-						{
-							exits[i].lock = close;
-							printf("\n You close the South Door\n");
-							break;
-						}
-						else if ((exits[i].direction == south) && (exits[i].lock == close) && (exits[i].origin == (player[0].position))){
-							printf("\n>This door is already closed\n");
-						}
-						else if ((exits[i].direction == south) && (exits[i].origin == (player[0].position))){
-							printf("\n>You can't close this door\n"); break;
-
-						}
-					}
-
-				}
 			}
 		}
+		//--------------------------------------------------------------------//
+		else if (strcmp(command, "close") == 0 || strcmp(command, "CLOSE") == 0 || strcmp(command, "close") == 0){
+			if (second == NULL){
+				printf("Writte a right command please ( 'close' 'Direction'?");
+			}
+			else if (strcmp(second, "north") == 0 || strcmp(second, "North") == 0 || strcmp(second, "N") == 0 || strcmp(second, "n") == 0){
+
+				for (i = 0; i < Exits; i++)
+				{
+					if ((exits[i].direction == north) && (exits[i].lock == open) && (exits[i].origin == (player[0].position)))
+					{
+						exits[i].lock = close;
+						printf("\n You close the North Door\n");
+						break;
+					}
+					else if ((exits[i].direction == north) && (exits[i].lock == close) && (exits[i].origin == (player[0].position))){
+						printf("\n>This door is already closed\n");
+					}
+					else if ((exits[i].direction == north) && (exits[i].origin == (player[0].position))){
+						printf("\n>You can't close this door\n"); break;
+
+					}
+				}
+
+			}
+			else if (strcmp(second, "south") == 0 || strcmp(second, "South") == 0 || strcmp(second, "S") == 0 || strcmp(second, "s") == 0){
+
+				for (i = 0; i < Exits; i++)
+				{
+					if ((exits[i].direction == south) && (exits[i].lock == open) && (exits[i].origin == (player[0].position)))
+					{
+						exits[i].lock = close;
+						printf("\n You close the South Door\n");
+						break;
+					}
+					else if ((exits[i].direction == south) && (exits[i].lock == close) && (exits[i].origin == (player[0].position))){
+						printf("\n>This door is already closed\n");
+					}
+					else if ((exits[i].direction == south) && (exits[i].origin == (player[0].position))){
+						printf("\n>You can't close this door\n"); break;
+
+					}
+				}
+
+			}
+		}
+	}
 };
 
-
+/*
 void World::CreateExits() const{
 
 	strcpy_s(exits[0].name, "Cave");
@@ -435,3 +436,4 @@ void World::CreateExits() const{
 	exits[19].destination = &rooms[10];
 	exits[19].direction = down;
 }
+*/
