@@ -20,7 +20,6 @@ public:
 	Vector()
 	{
 		vector = new TYPE[max_size];
-		printf("EMPTY CONSTRUCTOR\n");
 	}
 
 	Vector(const Vector &other)
@@ -35,7 +34,6 @@ public:
 				*(vector + i) = *(other.vector + i);
 			}
 		}
-		printf("COPY CONSTRUCTOR\n");
 	}
 
 	void pushback(const TYPE &element)
@@ -86,7 +84,6 @@ public:
 
 	~Vector()
 	{
-		printf("DESTRUCTOR\n");
 		delete[] vector;
 	}
 

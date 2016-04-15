@@ -9,16 +9,15 @@ int main()
 
 	World w;
 
-	w.CreateWorld(); //Sets rooms and exits (names and descriptions)
-
-	w.Help(); //An introduction to my game with a description and controls 
-
+	w.CreateWorld(); 
+	printf("Hi!!!!   Welcome To my Zork\n\n");
+	w.Help();
+	
 	MyString option;
 	char command[70];
-	int position = 0; //Sets initial position to rooms[0](BEDROOM)
+	int position = 0; 
 
-	do
-	{
+	while (1){
 		int opt;
 		fflush(stdin);
 		printf("\n> ");
@@ -32,37 +31,35 @@ int main()
 				printf("%s\n", commands[i].c_str());
 			}
 
-			//Goes to Movement Function Member
+
 			if (GetCommand(commands) == Movement)
 			{
 				w.Movement(position, commands);
 			}
 
-			//Goes to Look Function Member
 			else if (GetCommand(commands) == Look)
 			{
 				w.Look(position, commands);
 			}
 
-			//Goes to Open Function Member
 			else if (GetCommand(commands) == Open)
 			{
 				w.Open(position, commands);
 			}
 
-			//Goes to Close Function Member
+
 			else if (GetCommand(commands) == Close)
 			{
 				w.Close(position, commands);
 			}
 
-			//Goes to Pick Function Member
+
 			else if (GetCommand(commands) == Pick)
 			{
 				w.Pick(commands);
 			}
 
-			//Goes to Close Function Member
+
 			else if (GetCommand(commands) == Close)
 			{
 				w.Drop(commands);
@@ -83,8 +80,7 @@ int main()
 				return 0;
 			}
 		}
-
-	} while (1);
+	}
 
 	return 0;
 }

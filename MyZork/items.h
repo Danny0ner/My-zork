@@ -8,11 +8,11 @@ class Item :public Entity
 {
 public:
 
-	Room* src; //source room
+	Room* src; 
 	void Look() const;
 	bool picked = false;
 	Item(const char*,const char*,Room*,bool);
-	//~Item();
+	
 
 };
 

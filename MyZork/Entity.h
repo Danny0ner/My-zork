@@ -10,7 +10,7 @@ public:
 	MyString name;
 	MyString description;
 	Entity(const char*,const char*);
-	//~Entity();
+
 	virtual void Look() const{};
 
 };

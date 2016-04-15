@@ -335,12 +335,8 @@ void World::Look(int pos, Vector<MyString> &commands) const
 
 void World::Help() const
 {
-	printf("\nThis is 'Simon & Baxter: the magical stones'\n\nIt's an interactive textual game in which you have to explore\n");
-	printf("a fantasy world full of enemies and challenges to get\nmagical stones. With their power you will be able to defeat Rakdos,\nthe Devil King.\n");
-	printf("\nINSTRUCTIONS:\n");
-	printf("The commands that you can enter:\ngo / look / open _ door / close _ door / help / quit.\n\n");
-	printf("To specify the direction you want:\nnorth(n) / south(s) / east(e) / west(w) / up(u) / down(d)\n");
 }
+
 
 
 void World::Open(int pos, Vector<MyString>&commands) const
