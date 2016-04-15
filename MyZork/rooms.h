@@ -3,14 +3,14 @@
 
 #include"Entity.h"
 
-class Room :public Entity
+class Room:public Entity
 {
 public:
-	Room(const char* name, const char* descrip) :Entity(name, descrip){}
+	Room(const char*,const char*);
 	//~Room();
-
+	
 	void Look()const;
-
+	
 };
 
 #endif

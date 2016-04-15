@@ -3,16 +3,15 @@
 
 #include"world.h"
 #include"Entity.h"
-#include "Room.h"
 
-class Item : public Entity
+class Item :public Entity
 {
 public:
 
-	Room* pos; 
+	Room* src; //source room
 	void Look() const;
 	bool picked = false;
-	Item(const char*, const char*, Room*, bool);
+	Item(const char*,const char*,Room*,bool);
 	//~Item();
 
 };

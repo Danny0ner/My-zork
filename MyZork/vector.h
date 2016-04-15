@@ -20,6 +20,7 @@ public:
 	Vector()
 	{
 		vector = new TYPE[max_size];
+		printf("EMPTY CONSTRUCTOR\n");
 	}
 
 	Vector(const Vector &other)
@@ -34,6 +35,7 @@ public:
 				*(vector + i) = *(other.vector + i);
 			}
 		}
+		printf("COPY CONSTRUCTOR\n");
 	}
 
 	void pushback(const TYPE &element)
@@ -90,6 +92,7 @@ public:
 
 	const TYPE &operator[](const uint &index) const
 	{
+		assert(index >= 0 && index < n_elements);
 		return vector[index];
 	}
 
