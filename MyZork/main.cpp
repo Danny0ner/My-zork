@@ -40,6 +40,8 @@ int main()
 				else if (GetCommand(commands) == Inventory)   w.Inventory();
 
 				else if (GetCommand(commands) == Help)        w.Help();
+				
+				else if (GetCommand(commands) == Shrink)      w.Shrink();
 
 				else if (GetCommand(commands) == Invalid_command)      printf("Invalid command, try again pls\n");
 

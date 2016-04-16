@@ -6,7 +6,8 @@
 class Room:public Entity
 {
 public:
-	Room(const char*,const char*);
+	MyString ShrinkDesc;
+	Room(const char*,const char*, const char*);
 	
 	void Look()const;
 	

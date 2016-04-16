@@ -11,17 +11,17 @@ World::World()
 
 void World::CreateWorld() 
 {
-	rooms.pushback(new Room("Cave", " You can't see very much, but it seems to be an aquamarine cave. There you can see two weapones on the ground."));
-	rooms.pushback(new Room("Garden", "The garden is like the one on alice in wonderland, it has a lot of colors and seems to a good place to stay."));
-	rooms.pushback(new Room("Temple", "A big stone temple stands at you, it seems to have more than ten thousand years of antiquity."));
-	rooms.pushback(new Room("Strange Room", "at the moment that you enter on this room, you get scared, but you don't know why. You only know that you want to scape from there as fast as possible."));
-	rooms.pushback(new Room("Videogames' shop", "You always loved videogames, so this is like your paradise, you can see the shop assistant standing at the back of the shop. "));
-	rooms.pushback(new Room("Secret Room 1", "In the center of the room you can see a sphinx, it seems that want to talk with you."));
-	rooms.pushback(new Room("A Kid's Room", "This place seems like a kid's room, it has a lot of toys. This room also its a bit creepy."));
-	rooms.pushback(new Room("Wooden house", "you enter in a wood hause that is exactly like the one of a book that you did read when you were a child."));
-	rooms.pushback(new Room("Frozen Lake", "You can see a enormous frozen lake that could kill you if you were inside it in like 5 seconds.You'll prefer to take care with it."));
-	rooms.pushback(new Room("Beach", "You arrive at the beach, the sun reinforces you, it helps you to recover your forces.You can see a trapdoor under your feet."));
-	rooms.pushback(new Room("Secret Room 2", "In the center of the room you can see a sphinx, it seems that want to talk with you."));
+	rooms.pushback(new Room("Cave", " You can't see very much, but it seems to be an aquamarine cave. There you can see two weapones on the ground.", "You can see the enormous that this cave is now, you're amazed and you try to find something that you couldn't see before but you don't find nothing."));
+	rooms.pushback(new Room("Garden", "The garden is like the one on alice in wonderland, it has a lot of colors and seems to a good place to stay.", ""));
+	rooms.pushback(new Room("Temple", "A big stone temple stands at you, it seems to have more than ten thousand years of antiquity.", ""));
+	rooms.pushback(new Room("Strange Room", "at the moment that you enter on this room, you get scared, but you don't know why. You only know that you want to scape from there as fast as possible.", ""));
+	rooms.pushback(new Room("Videogames' shop", "You always loved videogames, so this is like your paradise, you can see the shop assistant standing at the back of the shop. ", ""));
+	rooms.pushback(new Room("Secret Room 1", "In the center of the room you can see a sphinx, it seems that want to talk with you.", ""));
+	rooms.pushback(new Room("A Kid's Room", "This place seems like a kid's room, it has a lot of toys. This room also its a bit creepy.", ""));
+	rooms.pushback(new Room("Wooden house", "you enter in a wood hause that is exactly like the one of a book that you did read when you were a child.", ""));
+	rooms.pushback(new Room("Frozen Lake", "You can see a enormous frozen lake that could kill you if you were inside it in like 5 seconds.You'll prefer to take care with it.", ""));
+	rooms.pushback(new Room("Beach", "You arrive at the beach, the sun reinforces you, it helps you to recover your forces.You can see a trapdoor under your feet.", ""));
+	rooms.pushback(new Room("Secret Room 2", "In the center of the room you can see a sphinx, it seems that want to talk with you.", ""));
 	
 
 	exits.pushback(new Exit("Cave", "You can see a door that enters into darkness.", rooms[1], rooms[0], south, false, true));
@@ -80,22 +80,28 @@ void World::Movement(int &pos, Vector<MyString> &commands)
 				{
 					if (exits[i]->dst == rooms[y])
 					{
-						if (exits[i]->door == true && exits[i]->open == false)  //Case 1: the exit has a closed door you have to open first
+						if (exits[i]->door == true && exits[i]->open == false)
 						{
 							printf("\nThere's a door locked here.\n");
 							return;
 						}
-						else  //Case 2: there is a room in the chosen direction and there isn't a closed door (sets a new position for the player).
+						else
 						{
 							pos = y;
-							printf("\n%s\n%s", rooms[y]->name.c_str(), rooms[y]->description.c_str());
-							return;
+							if (player->shrink == false){
+								printf("\n%s\n%s", rooms[y]->name.c_str(), rooms[y]->description.c_str());
+								return;
+							}
+							else {
+								printf("\n%s\n%s", rooms[y]->name.c_str(), rooms[y]->ShrinkDesc.c_str());
+								return;
+							}
 						}
 					}
 				}
 			}
 		}
-		printf("\nYou can't move into that direction.\n");  //Case 3: there isn't any room in the chosen direction
+		printf("\nYou can't move into that way.\n");
 	}
 
 	else if (commands.size() == 2 && commands[0] == "go" && (commands[1] == "south" || commands[1] == "s") || commands[0] == "south" || commands[0] == "s")
@@ -593,6 +599,16 @@ void World::Inventory() const
 	else
 	{
 		printf("You don't have items in your inventory\n");
+	}
+}
+
+void World::Shrink(){
+	if (player->shrink == true){
+		printf("You're shrinked, you won't shrink more, don't try it.");
+	}
+	else {
+		player->shrink = true;
+		printf("You can feel your body and all your pertenances shrinking with you.");
 	}
 }
 

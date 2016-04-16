@@ -40,6 +40,10 @@ int GetCommand(Vector<MyString>&commands)
 		return Inventory;
 	}
 
+	else if (commands[0] == "shrink")
+	{
+		return Shrink;
+	}
 	else if (commands[0] == "help")
 	{
 		return Help;

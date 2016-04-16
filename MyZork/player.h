@@ -10,7 +10,7 @@ class Player
 public:
 
 	Room* player_pos;
-
+	bool shrink = false;
 	unsigned int num_items = 0;
 
 

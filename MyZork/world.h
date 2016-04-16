@@ -42,6 +42,7 @@ public:
 	void Pick(Vector<MyString>&);
 	void Drop(Vector<MyString>&);
 	void Inventory() const;
+	void Shrink();
 	~World();
 };
 
