@@ -35,6 +35,10 @@ int GetCommand(Vector<MyString>&commands)
 	{
 		return Drop;
 	}
+	else if (commands[0] == "inventory")
+	{
+		return Inventory;
+	}
 
 	else if (commands[0] == "help")
 	{

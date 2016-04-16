@@ -18,68 +18,34 @@ int main()
 	int position = 0; 
 
 	while (1){
-		int opt;
 		fflush(stdin);
-		printf("\n> ");
+		printf("\n\n> ");
 		gets_s(command, 70);
 		if (command[0] != NULL && command[0] != ' ')
 		{
 			Vector<MyString> commands = option.SplitString(" ", command);
 
-			for (int i = 0; i < commands.size(); i++)
-			{
-				printf("%s\n", commands[i].c_str());
-			}
+				if (GetCommand(commands) == Movement)         w.Movement(position, commands);
 
+				else if (GetCommand(commands) == Look)        w.Look(position, commands);
 
-			if (GetCommand(commands) == Movement)
-			{
-				w.Movement(position, commands);
-			}
+				else if (GetCommand(commands) == Open)        w.Open(position, commands);
 
-			else if (GetCommand(commands) == Look)
-			{
-				w.Look(position, commands);
-			}
+				else if (GetCommand(commands) == Close)       w.Close(position, commands);
 
-			else if (GetCommand(commands) == Open)
-			{
-				w.Open(position, commands);
-			}
+				else if (GetCommand(commands) == Pick)        w.Pick(commands);
 
+				else if (GetCommand(commands) == Drop)        w.Drop(commands);
 
-			else if (GetCommand(commands) == Close)
-			{
-				w.Close(position, commands);
-			}
+				else if (GetCommand(commands) == Inventory)   w.Inventory();
 
+				else if (GetCommand(commands) == Help)        w.Help();
 
-			else if (GetCommand(commands) == Pick)
-			{
-				w.Pick(commands);
-			}
+				else if (GetCommand(commands) == Invalid_command)      printf("Invalid command, try again pls\n");
 
-
-			else if (GetCommand(commands) == Close)
-			{
-				w.Drop(commands);
-			}
-
-			else if (GetCommand(commands) == Help)
-			{
-				w.Help();
-			}
-
-			else if (GetCommand(commands) == Invalid_command)
-			{
-				printf("Invalid command\n");
-			}
-
-			else if (GetCommand(commands) == Quit)
-			{
-				return 0;
-			}
+				else if (GetCommand(commands) == Quit)        return 0;
 		}
+
 	}
 
 	return 0;

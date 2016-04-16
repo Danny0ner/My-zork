@@ -22,6 +22,7 @@ void World::CreateWorld()
 	rooms.pushback(new Room("Frozen Lake", "You can see a enormous frozen lake that could kill you if you were inside it in like 5 seconds.You'll prefer to take care with it."));
 	rooms.pushback(new Room("Beach", "You arrive at the beach, the sun reinforces you, it helps you to recover your forces.You can see a trapdoor under your feet."));
 	rooms.pushback(new Room("Secret Room 2", "In the center of the room you can see a sphinx, it seems that want to talk with you."));
+	
 
 	exits.pushback(new Exit("Cave", "You can see a door that enters into darkness.", rooms[1], rooms[0], south, false, true));
 	exits.pushback(new Exit("Cave", "You can see a cave.", rooms[2], rooms[0], west, false, true));
@@ -43,6 +44,17 @@ void World::CreateWorld()
 	exits.pushback(new Exit("Beach", "you can see a beach in the distance", rooms[8], rooms[9], south, false, true));
 	exits.pushback(new Exit("Beach", "The stairs goes back to the beach.", rooms[10], rooms[9], up, false, true));
 	exits.pushback(new Exit("Secret Room 2", "There is a trapdoor under your feet.Seems that you can go for there.", rooms[9], rooms[10], down, false, true));
+
+	items.pushback(new Item("shield", "item 1", rooms[0],false, false));
+	items.pushback(new Item("Item2", "item 2", rooms[0], false, false));
+	items.pushback(new Item("Item3", "item 3", rooms[0], false, false));
+	items.pushback(new Item("Item4", "item 4", rooms[0], false, false));
+	items.pushback(new Item("Item5", "item 5", rooms[0], false, false));
+	items.pushback(new Item("Item6", "item 6", rooms[0], false, false));
+	items.pushback(new Item("Item7", "item 7", rooms[0], false, false));
+	items.pushback(new Item("Item8", "item 8", rooms[0], false, false));
+	items.pushback(new Item("Item9", "item 9", rooms[0], false, false));
+	
 
 }
 
@@ -321,7 +333,7 @@ void World::Look(int pos, Vector<MyString> &commands) const
 		printf("\nThere's nothing of interest there.\n");
 	}
 
-	else //Case 1: name and description of the room you are.
+	else
 	{
 		rooms[pos]->Look();
 		for (i = 0; i < NUM_ITEMS; i++)
@@ -344,20 +356,13 @@ void World::Help() const
 
 void World::Open(int pos, Vector<MyString>&commands) const
 {
-	int i;  //Counter to consider the correct exit
+	int i;  
 	player->player_pos = rooms[pos];
-
-	/*if ((commands.size() == 2 && (commands[1] == "north" || commands[1] == "n"))
-	{
-		printf("\nYou have to specify which door you want to open.\n");
-		return;
-	}*/
 
 	if (commands.size() == 3 && (commands[1] == "north" || commands[1] == "n") && commands[2] == "door")
 	{
 		for (i = 0; i < NUM_EXITS; i++)
 		{
-			//OPEN CONDITION: the exit you want to "open" has a door, and its door is closed
 			if (exits[i]->src == player->player_pos && exits[i]->direction == north && exits[i]->open == false)
 			{
 				exits[i]->open = true;
@@ -440,7 +445,7 @@ void World::Open(int pos, Vector<MyString>&commands) const
 
 	else
 	{
-	printf("\nYou have to specify which door you want to open.\n");
+	printf("\nSpecify which door you want to open pls.\n");
 	return;
 	}
 }
@@ -450,12 +455,6 @@ void World::Close(int pos, Vector<MyString> &commands) const
 {
 	int i;
 	player->player_pos = rooms[pos];
-
-	/*if (close == close_door)
-	{
-		printf("\nYou have to specify which door you want to close.\n");
-		return;
-	}*/
 
 
 	if (commands.size() == 3 && (commands[1] == "north" || commands[1] == "n") && commands[2] == "door")
@@ -549,16 +548,17 @@ void World::Pick(Vector<MyString> &commands)
 {
 	for (int i = 0; i < NUM_ITEMS; i++)
 	{
-		if (commands.size() == 2 && items[i]->name == commands[1] && exits[i]->src == player->player_pos && items[i]->picked == false)
+		if (commands.size() == 2 && commands[1] == items[i]->name && items[i]->src == player->player_pos && items[i]->picked == false)
 		{
 			items[i]->picked = true;
 			player->num_items++;
-			printf("You picked %s", items[i]->name.c_str());
+			printf("You picked %s\n", items[i]->name.c_str());
 			return;
 		}
 	}
 	printf("There's any object with that name here.\n");
 }
+
 
 void World::Drop(Vector<MyString> &commands)
 {
@@ -568,18 +568,39 @@ void World::Drop(Vector<MyString> &commands)
 		{
 			items[i]->picked = false;
 			items[i]->src = player->player_pos;
-			printf("You droped %s", items[i]->name.c_str());
+			printf("You droped %s\n", items[i]->name.c_str());
+			player->num_items--;
 			return;
 		}
 	}
-	printf("There's any object with that name here.\n");
+	printf("There's any object with that name in your inventory.\n");
+}
+
+void World::Inventory() const
+{
+	int i;
+	if (player->num_items > 0)
+	{
+		printf("You have:\n\n");
+		for (i = 0; i < NUM_ITEMS; i++)
+		{
+			if (items[i]->picked == true)
+			{
+				printf("%s\n%s\n", items[i]->name.c_str(), items[i]->description.c_str());
+			}
+		}
+	}
+	else
+	{
+		printf("You don't have items in your inventory\n");
+	}
 }
 
 
 World::~World()
 {
 	delete player;
-	delete[] inventory;
+
 }
 
 

@@ -13,7 +13,7 @@
 #define EXIT 200
 #define NUM_ROOMS 11
 #define NUM_EXITS 18
-#define NUM_ITEMS 2
+#define NUM_ITEMS 9
 #define TOKENIZE 100
 
 // Now, if you include "world.h" in other files,
@@ -30,7 +30,6 @@ public:
 
 	Player* player = nullptr;
 
-	Item* inventory = nullptr;
 
 	World();
 
@@ -42,7 +41,7 @@ public:
 	void Close(int, Vector<MyString>&) const;
 	void Pick(Vector<MyString>&);
 	void Drop(Vector<MyString>&);
-
+	void Inventory() const;
 	~World();
 };
 

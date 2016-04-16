@@ -45,7 +45,7 @@ public:
 			max_size += 5;
 			temp = new TYPE[max_size];
 
-			for (int i = 0; i < n_elements; i++)
+			for (uint i = 0; i < n_elements; i++)
 			{
 				*(temp + i) = *(vector + i);
 			}
