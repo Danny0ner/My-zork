@@ -42,8 +42,10 @@ void World::CreateWorld()
 	exits.pushback(new Exit("Frozen Lake", "in the distance you can see a forzen lake", rooms[9], rooms[8], north, false, true));
 	exits.pushback(new Exit("Beach", "you can see a beach in the distance", rooms[8], rooms[9], south, false, true));
 	exits.pushback(new Exit("Beach", "The stairs goes back to the beach.", rooms[10], rooms[9], up, false, true));
-	exits.pushback(new Exit("Secret Room 2", "There is a trapdoor under your feet. Seems that you can go for there.", rooms[9], rooms[10], down, false, true));
+	exits.pushback(new Exit("Secret Room 2", "There is a trapdoor under your feet.Seems that you can go for there.", rooms[9], rooms[10], down, false, true));
+
 }
+
 
 
 /* MOVEMENT FUNCTION */
@@ -51,20 +53,20 @@ void World::Movement(int &pos, Vector<MyString> &commands)
 {
 	fflush(stdin);
 
-	int i, j; //counters that consider the correct room/exit when you move.
+	int i, y; //counters that consider the correct room/exit when you move.
 
 	player->player_pos = rooms[pos];
 
-	if (commands.size() == 2 && commands[0] == "go" && (commands[1] == "north" && commands[1] == "n") || commands[0] == "north" || commands[0] == "n")
+	if (commands.size() == 2 && commands[0] == "go" && (commands[1] == "north" || commands[1] == "n"))
 	{
 		for (i = 0; i < NUM_EXITS; i++)
 		{
 			if (exits[i]->src == player->player_pos && exits[i]->direction == north)
 			{
 				player->player_pos = exits[i]->dst;
-				for (j = 0; j < NUM_ROOMS; j++)
+				for (y = 0; y < NUM_ROOMS; y++)
 				{
-					if (exits[i]->dst == rooms[j])
+					if (exits[i]->dst == rooms[y])
 					{
 						if (exits[i]->door == true && exits[i]->open == false)  //Case 1: the exit has a closed door you have to open first
 						{
@@ -73,8 +75,8 @@ void World::Movement(int &pos, Vector<MyString> &commands)
 						}
 						else  //Case 2: there is a room in the chosen direction and there isn't a closed door (sets a new position for the player).
 						{
-							pos = j;
-							printf("\n%s\n%s", rooms[j]->name.c_str(), rooms[j]->description.c_str());
+							pos = y;
+							printf("\n%s\n%s", rooms[y]->name.c_str(), rooms[y]->description.c_str());
 							return;
 						}
 					}
@@ -91,9 +93,9 @@ void World::Movement(int &pos, Vector<MyString> &commands)
 			if (exits[i]->src == player->player_pos && exits[i]->direction == south)
 			{
 				player->player_pos = exits[i]->dst;
-				for (j = 0; j < NUM_ROOMS; j++)
+				for (y = 0; y < NUM_ROOMS; y++)
 				{
-					if (exits[i]->dst == rooms[j])
+					if (exits[i]->dst == rooms[y])
 					{
 						if (exits[i]->door == true && exits[i]->open == false)
 						{
@@ -102,8 +104,8 @@ void World::Movement(int &pos, Vector<MyString> &commands)
 						}
 						else
 						{
-							pos = j;
-							printf("\n%s\n%s", rooms[j]->name.c_str(), rooms[j]->description.c_str());
+							pos = y;
+							printf("\n%s\n%s", rooms[y]->name.c_str(), rooms[y]->description.c_str());
 							return;
 						}
 					}
@@ -120,9 +122,9 @@ void World::Movement(int &pos, Vector<MyString> &commands)
 			if (exits[i]->src == player->player_pos && exits[i]->direction == east)
 			{
 				player->player_pos = exits[i]->dst;
-				for (j = 0; j < NUM_ROOMS; j++)
+				for (y = 0; y < NUM_ROOMS; y++)
 				{
-					if (exits[i]->dst == rooms[j])
+					if (exits[i]->dst == rooms[y])
 					{
 						if (exits[i]->door == true && exits[i]->open == false)
 						{
@@ -131,8 +133,8 @@ void World::Movement(int &pos, Vector<MyString> &commands)
 						}
 						else
 						{
-							pos = j;
-							printf("\n%s\n%s", rooms[j]->name.c_str(), rooms[j]->description.c_str());
+							pos = y;
+							printf("\n%s\n%s", rooms[y]->name.c_str(), rooms[y]->description.c_str());
 							return;
 						}
 					}
@@ -149,9 +151,9 @@ void World::Movement(int &pos, Vector<MyString> &commands)
 			if (exits[i]->src == player->player_pos && exits[i]->direction == west)
 			{
 				player->player_pos = exits[i]->dst;
-				for (j = 0; j < NUM_ROOMS; j++)
+				for (y = 0; y < NUM_ROOMS; y++)
 				{
-					if (exits[i]->dst == rooms[j])
+					if (exits[i]->dst == rooms[y])
 					{
 						if (exits[i]->door == true && exits[i]->open == false)
 						{
@@ -160,8 +162,8 @@ void World::Movement(int &pos, Vector<MyString> &commands)
 						}
 						else
 						{
-							pos = j;
-							printf("\n%s\n%s", rooms[j]->name.c_str(), rooms[j]->description.c_str());
+							pos = y;
+							printf("\n%s\n%s", rooms[y]->name.c_str(), rooms[y]->description.c_str());
 							return;
 						}
 					}
@@ -171,16 +173,16 @@ void World::Movement(int &pos, Vector<MyString> &commands)
 		printf("\nYou can't move into that way.\n");
 	}
 
-	else if (commands.size() == 2 && commands[0] == "go" && (commands[1] == "down" || commands[1] == "d") || commands[0] == "down" || commands[0] == "d")
+	else if (commands.size() == 2 && commands[0] == "go" && (commands[1] == "down" || commands[1] == "d"))
 	{
 		for (i = 0; i < NUM_EXITS; i++)
 		{
 			if (exits[i]->src == player->player_pos && exits[i]->direction == down)
 			{
 				player->player_pos = exits[i]->dst;
-				for (j = 0; j < NUM_ROOMS; j++)
+				for (y = 0; y < NUM_ROOMS; y++)
 				{
-					if (exits[i]->dst == rooms[j])
+					if (exits[i]->dst == rooms[y])
 					{
 						if (exits[i]->door == true && exits[i]->open == false)
 						{
@@ -189,8 +191,8 @@ void World::Movement(int &pos, Vector<MyString> &commands)
 						}
 						else
 						{
-							pos = j;
-							printf("\n%s\n%s", rooms[j]->name.c_str(), rooms[j]->description.c_str());
+							pos = y;
+							printf("\n%s\n%s", rooms[y]->name.c_str(), rooms[y]->description.c_str());
 							return;
 						}
 					}
@@ -207,9 +209,9 @@ void World::Movement(int &pos, Vector<MyString> &commands)
 			if (exits[i]->src == player->player_pos && exits[i]->direction == up)
 			{
 				player->player_pos = exits[i]->dst;
-				for (j = 0; j < NUM_ROOMS; j++)
+				for (y = 0; y < NUM_ROOMS; y++)
 				{
-					if (exits[i]->dst == rooms[j])
+					if (exits[i]->dst == rooms[y])
 					{
 						if (exits[i]->door == true && exits[i]->open == false)
 						{
@@ -218,8 +220,8 @@ void World::Movement(int &pos, Vector<MyString> &commands)
 						}
 						else
 						{
-							pos = j;
-							printf("\n%s\n%s\n", rooms[j]->name.c_str(), rooms[j]->description.c_str());
+							pos = y;
+							printf("\n%s\n%s\n", rooms[y]->name.c_str(), rooms[y]->description.c_str());
 							return;
 						}
 					}
@@ -251,7 +253,7 @@ void World::Look(int pos, Vector<MyString> &commands) const
 				return;
 			}
 		}
-		printf("\nThere's nothing to look here.\n");  //Case 3: there's no exit placed in the chosen direction
+		printf("\nThere's nothing of interest there.\n");  //Case 3: there's no exit placed in the chosen direction
 	}
 
 	else if (commands.size() == 2 && (commands[1] == "south" || commands[1] == "s"))
@@ -264,7 +266,7 @@ void World::Look(int pos, Vector<MyString> &commands) const
 				return;
 			}
 		}
-		printf("\nThere's nothing to look here.\n");
+		printf("\nThere's nothing of interest there.\n");
 	}
 
 	else if (commands.size() == 2 && (commands[1] == "east" || commands[1] == "e"))
@@ -277,7 +279,7 @@ void World::Look(int pos, Vector<MyString> &commands) const
 				return;
 			}
 		}
-		printf("\nThere's nothing to look here.\n");
+		printf("\nThere's nothing of interest there.\n");
 	}
 
 	else if (commands.size() == 2 && (commands[1] == "west" || commands[1] == "w"))
@@ -290,7 +292,7 @@ void World::Look(int pos, Vector<MyString> &commands) const
 				return;
 			}
 		}
-		printf("\nThere's nothing to look here.\n");
+		printf("\nThere's nothing of interest there.\n");
 	}
 
 	else if (commands.size() == 2 && (commands[1] == "up" || commands[1] == "u"))
@@ -303,7 +305,7 @@ void World::Look(int pos, Vector<MyString> &commands) const
 				return;
 			}
 		}
-		printf("\nThere's nothing to look here.\n");
+		printf("\nThere's nothing of interest there.\n");
 	}
 
 	else if (commands.size() == 2 && (commands[1] == "down" || commands[1] == "d"))
@@ -316,7 +318,7 @@ void World::Look(int pos, Vector<MyString> &commands) const
 				return;
 			}
 		}
-		printf("\nThere's nothing to look here.\n");
+		printf("\nThere's nothing of interest there.\n");
 	}
 
 	else //Case 1: name and description of the room you are.
@@ -335,6 +337,7 @@ void World::Look(int pos, Vector<MyString> &commands) const
 
 void World::Help() const
 {
+	printf("Move Commands: 'go north' or 'go n'  'go south' or 'go s'  'go west' or go w'  'go east' or 'go e'  'go down' or 'go d'  'go up' or 'go u'\nLook Commands: 'look'  'look north' 'look n'  'look south' 'look s' 'look west' 'look w' 'look east' 'look e' 'look up' 'look down'\nEnter 'quit' to exit.");
 }
 
 

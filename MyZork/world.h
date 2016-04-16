@@ -11,7 +11,7 @@
 #include"vector.h"
 
 #define EXIT 200
-#define NUM_ROOMS 13
+#define NUM_ROOMS 11
 #define NUM_EXITS 18
 #define NUM_ITEMS 2
 #define TOKENIZE 100

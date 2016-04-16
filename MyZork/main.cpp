@@ -10,8 +10,8 @@ int main()
 	World w;
 
 	w.CreateWorld(); 
-	printf("Hi!!!!   Welcome To my Zork\n\n");
-	w.Help();
+	printf("\t\t\t Welcome To my Zork\n\n");
+	printf("Hi!! Welcome to my own Zork. I hope you enojoy it as much i did doing it (sometimes it has been horrible). Btw, press help if you want to see the comands. Enjoy<3\n\n");
 	
 	MyString option;
 	char command[70];

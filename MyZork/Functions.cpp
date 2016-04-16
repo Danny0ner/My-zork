@@ -7,10 +7,7 @@
 int GetCommand(Vector<MyString>&commands)
 {
 
-	if (commands[0] == "go" || commands[0] == "n" || commands[0] == "s" || commands[0] == "e" ||
-		commands[0] == "w" || commands[0] == "d" || commands[0] == "u" || commands[0] == "north" ||
-		commands[0] == "south" || commands[0] == "east" || commands[0] == "west" || commands[0] == "up" || 
-		commands[0] == "down")
+	if (commands[0] == "go")
 	{
 		return Movement;
 	}
