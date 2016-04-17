@@ -4,7 +4,7 @@
 #include"rooms.h"
 #include"player.h"
 #include"exits.h"
-#include"Functions.h"
+#include"Actions.h"
 #include"Entity.h"
 #include"MyString.h"
 #include"items.h"

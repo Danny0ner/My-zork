@@ -9,7 +9,7 @@ int GetCommand(Vector<MyString>&commands)
 
 	if (commands[0] == "go")
 	{
-		return Movement;
+		return Move;
 	}
 	else if (commands[0] == "look")
 	{

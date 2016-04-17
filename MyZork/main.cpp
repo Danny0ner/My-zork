@@ -12,6 +12,8 @@ int main()
 	map.CreateWorld(); 
 	printf("\t\t\t Welcome To my Zork\n\n");
 	printf("Hi!! Welcome to my own Zork. I hope you enojoy it as much i did doing it (sometimes it has been horrible). Btw, press help if you want to see the comands. Enjoy<3\n\n");
+
+	printf("\tCave\nYou can't see very much, but it seems to be an aquamarine cave.\n\n");
 	
 	MyString option;
 	char command[70];
@@ -25,7 +27,7 @@ int main()
 		{
 			Vector<MyString> commands = option.SplitString(" ", command);
 
-				if (GetCommand(commands) == Movement)         map.Movement(position, commands);
+				if (GetCommand(commands) == Move)         map.Movement(position, commands);
 
 				else if (GetCommand(commands) == Look)        map.Look(position, commands);
 
