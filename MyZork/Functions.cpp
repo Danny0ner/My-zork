@@ -44,6 +44,16 @@ int GetCommand(Vector<MyString>&commands)
 	{
 		return Shrink;
 	}
+	else if (commands[0] == "equip")
+	{
+		return Equip;
+	}
+	else if (commands[0] == "grow"){
+		return Grow;
+	}
+	else if (commands[0] == "unequip"){
+		return Unequip;
+	}
 	else if (commands[0] == "help")
 	{
 		return Help;

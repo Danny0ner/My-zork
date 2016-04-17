@@ -45,15 +45,15 @@ void World::CreateWorld()
 	exits.pushback(new Exit("Beach", "The stairs goes back to the beach.", rooms[10], rooms[9], up, false, true));
 	exits.pushback(new Exit("Secret Room 2", "There is a trapdoor under your feet.Seems that you can go for there.", rooms[9], rooms[10], down, false, true));
 
-	items.pushback(new Item("shield", "item 1", rooms[0],false, false));
-	items.pushback(new Item("Item2", "item 2", rooms[0], false, false));
-	items.pushback(new Item("Item3", "item 3", rooms[0], false, false));
-	items.pushback(new Item("Item4", "item 4", rooms[0], false, false));
-	items.pushback(new Item("Item5", "item 5", rooms[0], false, false));
-	items.pushback(new Item("Item6", "item 6", rooms[0], false, false));
-	items.pushback(new Item("Item7", "item 7", rooms[0], false, false));
-	items.pushback(new Item("Item8", "item 8", rooms[0], false, false));
-	items.pushback(new Item("Item9", "item 9", rooms[0], false, false));
+	items.pushback(new Item("shield", "item 1", rooms[0],false, false, false));
+	items.pushback(new Item("Item2", "item 2", rooms[0], false, false, false));
+	items.pushback(new Item("Item3", "item 3", rooms[0], false, false, false));
+	items.pushback(new Item("Item4", "item 4", rooms[0], false, false, false));
+	items.pushback(new Item("Item5", "item 5", rooms[0], false, false, false));
+	items.pushback(new Item("Item6", "item 6", rooms[0], false, false, false));
+	items.pushback(new Item("Item7", "item 7", rooms[0], false, false, false));
+	items.pushback(new Item("Item8", "item 8", rooms[0], false, false, false));
+	items.pushback(new Item("Item9", "item 9", rooms[0], false, false, false));
 	
 
 }
@@ -123,8 +123,14 @@ void World::Movement(int &pos, Vector<MyString> &commands)
 						else
 						{
 							pos = y;
-							printf("\n%s\n%s", rooms[y]->name.c_str(), rooms[y]->description.c_str());
-							return;
+							if (player->shrink == false){
+								printf("\n%s\n%s", rooms[y]->name.c_str(), rooms[y]->description.c_str());
+								return;
+							}
+							else {
+								printf("\n%s\n%s", rooms[y]->name.c_str(), rooms[y]->ShrinkDesc.c_str());
+								return;
+							}
 						}
 					}
 				}
@@ -152,8 +158,14 @@ void World::Movement(int &pos, Vector<MyString> &commands)
 						else
 						{
 							pos = y;
-							printf("\n%s\n%s", rooms[y]->name.c_str(), rooms[y]->description.c_str());
-							return;
+							if (player->shrink == false){
+								printf("\n%s\n%s", rooms[y]->name.c_str(), rooms[y]->description.c_str());
+								return;
+							}
+							else {
+								printf("\n%s\n%s", rooms[y]->name.c_str(), rooms[y]->ShrinkDesc.c_str());
+								return;
+							}
 						}
 					}
 				}
@@ -181,8 +193,14 @@ void World::Movement(int &pos, Vector<MyString> &commands)
 						else
 						{
 							pos = y;
-							printf("\n%s\n%s", rooms[y]->name.c_str(), rooms[y]->description.c_str());
-							return;
+							if (player->shrink == false){
+								printf("\n%s\n%s", rooms[y]->name.c_str(), rooms[y]->description.c_str());
+								return;
+							}
+							else {
+								printf("\n%s\n%s", rooms[y]->name.c_str(), rooms[y]->ShrinkDesc.c_str());
+								return;
+							}
 						}
 					}
 				}
@@ -209,9 +227,14 @@ void World::Movement(int &pos, Vector<MyString> &commands)
 						}
 						else
 						{
-							pos = y;
-							printf("\n%s\n%s", rooms[y]->name.c_str(), rooms[y]->description.c_str());
-							return;
+							if (player->shrink == false){
+								printf("\n%s\n%s", rooms[y]->name.c_str(), rooms[y]->description.c_str());
+								return;
+							}
+							else {
+								printf("\n%s\n%s", rooms[y]->name.c_str(), rooms[y]->ShrinkDesc.c_str());
+								return;
+							}
 						}
 					}
 				}
@@ -224,7 +247,7 @@ void World::Movement(int &pos, Vector<MyString> &commands)
 	{
 		for (i = 0; i < NUM_EXITS; i++)
 		{
-			if (exits[i]->src == player->player_pos && exits[i]->direction == up)
+			if (exits[i]->src == player->player_pos && exits[i]->direction == up && player->shrink == false)
 			{
 				player->player_pos = exits[i]->dst;
 				for (y = 0; y < NUM_ROOMS; y++)
@@ -244,14 +267,19 @@ void World::Movement(int &pos, Vector<MyString> &commands)
 						}
 					}
 				}
-			}	
+			}
 		}
-		printf("\nYou can't move into that way.\n");
+		if (player->shrink == true){
+			printf("you're to tinny to try to go up. Maybe if you grow up...");
+		}
+		else{
+			printf("\nYou can't move into that way.\n");
+		}
 	}
 
 	else
 	{
-		printf("\nYou have to specify in which direction you want to move.\n");
+		printf("\nThat's not a right direction to go, try with north, south, east or west.\n");
 		return;
 	}
 }
@@ -556,10 +584,16 @@ void World::Pick(Vector<MyString> &commands)
 	{
 		if (commands.size() == 2 && commands[1] == items[i]->name && items[i]->src == player->player_pos && items[i]->picked == false)
 		{
-			items[i]->picked = true;
-			player->num_items++;
-			printf("You picked %s\n", items[i]->name.c_str());
-			return;
+			if (player->shrink == items[i]->shrink){
+				items[i]->picked = true;
+				player->num_items++;
+				printf("You picked %s\n", items[i]->name.c_str());
+				return;
+			}
+			else {
+				printf("There's any object with that name here.\n");
+				return;
+			}
 		}
 	}
 	printf("There's any object with that name here.\n");
@@ -610,6 +644,71 @@ void World::Shrink(){
 		player->shrink = true;
 		printf("You can feel your body and all your pertenances shrinking with you.");
 	}
+}
+
+void World::Equip(Vector<MyString> &commands){
+	if (player->equiped == true){
+		printf("you already have an equiped item. Try to unequip your equiped item first.");
+		return;
+	}
+	else{
+		for (uint i = 0; i < NUM_ITEMS; i++){
+			if (commands[1] == items[i]->name && items[i]->picked == true) {
+				player->equiped = true;
+				items[i]->equiped = true;
+				printf("you equiped %s.",items[i]->name.c_str());
+				return;
+			}
+			else {
+				for (uint i = 0; i < NUM_ITEMS; i++){
+					if (commands[1] == items[i]->name){
+						printf("you don't have that in your inventory.");
+						return;
+					}
+					else printf("Pls, that's not even an item.");
+					return;
+				}
+			}
+		}
+	}
+}
+
+void World::Grow(){
+	if (player->shrink == false){
+		printf("don't try to grow more, you have so much to live for.");
+	}
+	else {
+		player->shrink = false;
+		printf("You start to grow at the same time that your pertenences do");
+	}
+
+}
+void World::Unequip(Vector<MyString> &commands){
+	if (player->equiped == false){
+		printf("you don't have an item equiped.");
+		return;
+	}
+	else for (uint i = 0; i < NUM_ITEMS; i++){
+		if (commands[1] == items[i]->name && items[i]->equiped == true){
+			player->equiped = false;
+			items[i]->equiped = false;
+			printf("you unequiped %s", items[i]->name.c_str());
+			return;
+		}
+		else {
+			for (uint i = 0; i < NUM_ITEMS; i++){
+				if (commands[1] == items[i]->name){
+					printf("you don't have that item equiped.");
+					return;
+				}
+				else printf("Pls, that's not even an item.");
+				return;
+			}
+			
+		}
+	}
+
+
 }
 
 

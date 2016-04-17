@@ -43,6 +43,9 @@ public:
 	void Drop(Vector<MyString>&);
 	void Inventory() const;
 	void Shrink();
+	void Equip(Vector<MyString>&);
+	void Grow();
+	void Unequip(Vector<MyString> &commands);
 	~World();
 };
 

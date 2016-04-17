@@ -7,9 +7,9 @@
 int main()
 {
 
-	World w;
+	World map;
 
-	w.CreateWorld(); 
+	map.CreateWorld(); 
 	printf("\t\t\t Welcome To my Zork\n\n");
 	printf("Hi!! Welcome to my own Zork. I hope you enojoy it as much i did doing it (sometimes it has been horrible). Btw, press help if you want to see the comands. Enjoy<3\n\n");
 	
@@ -25,23 +25,29 @@ int main()
 		{
 			Vector<MyString> commands = option.SplitString(" ", command);
 
-				if (GetCommand(commands) == Movement)         w.Movement(position, commands);
+				if (GetCommand(commands) == Movement)         map.Movement(position, commands);
 
-				else if (GetCommand(commands) == Look)        w.Look(position, commands);
+				else if (GetCommand(commands) == Look)        map.Look(position, commands);
 
-				else if (GetCommand(commands) == Open)        w.Open(position, commands);
+				else if (GetCommand(commands) == Open)        map.Open(position, commands);
 
-				else if (GetCommand(commands) == Close)       w.Close(position, commands);
+				else if (GetCommand(commands) == Close)       map.Close(position, commands);
 
-				else if (GetCommand(commands) == Pick)        w.Pick(commands);
+				else if (GetCommand(commands) == Pick)        map.Pick(commands);
 
-				else if (GetCommand(commands) == Drop)        w.Drop(commands);
+				else if (GetCommand(commands) == Drop)        map.Drop(commands);
 
-				else if (GetCommand(commands) == Inventory)   w.Inventory();
+				else if (GetCommand(commands) == Inventory)   map.Inventory();
 
-				else if (GetCommand(commands) == Help)        w.Help();
+				else if (GetCommand(commands) == Help)        map.Help();
 				
-				else if (GetCommand(commands) == Shrink)      w.Shrink();
+				else if (GetCommand(commands) == Shrink)      map.Shrink();
+
+				else if (GetCommand(commands) == Grow)        map.Grow();
+
+				else if (GetCommand(commands) == Unequip)      map.Unequip(commands);
+
+				else if (GetCommand(commands) == Equip)       map.Equip(commands);
 
 				else if (GetCommand(commands) == Invalid_command)      printf("Invalid command, try again pls\n");
 

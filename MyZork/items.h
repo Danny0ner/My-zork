@@ -11,8 +11,9 @@ public:
 	Room* src; 
 	void Look() const;
 	bool picked = false;
-	bool shrink;
-	Item(const char*,const char*,Room*,bool, bool);
+	bool shrink = false;
+	bool equiped;
+	Item(const char*,const char*,Room*,bool, bool, bool);
 	
 
 };

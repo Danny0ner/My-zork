@@ -11,6 +11,7 @@ public:
 
 	Room* player_pos;
 	bool shrink = false;
+	bool equiped = false;
 	unsigned int num_items = 0;
 
 
