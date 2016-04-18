@@ -12,16 +12,16 @@ World::World()
 void World::CreateWorld() 
 {
 	rooms.pushback(new Room("Cave", "You can't see very much, but it seems to be an aquamarine cave.", "You can see the enormous that this cave is now, you're amazed and you try to find something that you couldn't see before but you don't find nothing."));
-	rooms.pushback(new Room("Garden", "The garden is like the one on alice in wonderland, it has a lot of colors and seems to a good place to stay.", ""));
-	rooms.pushback(new Room("Temple", "A big stone temple stands at you, it seems to have more than ten thousand years of antiquity.", ""));
-	rooms.pushback(new Room("Strange Room", "at the moment that you enter on this room, you get scared, but you don't know why. You only know that you want to scape from there as fast as possible.", ""));
-	rooms.pushback(new Room("Videogames' shop", "You always loved videogames, so this is like your paradise, you can see the shop assistant standing at the back of the shop. ", ""));
-	rooms.pushback(new Room("Secret Room 1", "In the center of the room you can see a sphinx, it seems that want to talk with you.", ""));
-	rooms.pushback(new Room("A Kid's Room", "This place seems like a kid's room, it has a lot of toys. This room also its a bit creepy.", ""));
-	rooms.pushback(new Room("Wooden house", "you enter in a wood hause that is exactly like the one of a book that you did read when you were a child.", ""));
-	rooms.pushback(new Room("Frozen Lake", "You can see a enormous frozen lake that could kill you if you were inside it in like 5 seconds.You'll prefer to take care with it.", ""));
-	rooms.pushback(new Room("Beach", "You arrive at the beach, the sun reinforces you, it helps you to recover your forces.You can see a trapdoor under your feet.", ""));
-	rooms.pushback(new Room("Secret Room 2", "In the center of the room you can see a sphinx, it seems that want to talk with you.", ""));
+	rooms.pushback(new Room("Garden", "The garden is like the one on alice in wonderland, it has a lot of colors and seems to a good place to stay.", "Being that small, you're so scared of all the insects of the garden, you should run out of here before they do something to you."));
+	rooms.pushback(new Room("Temple", "A big stone temple stands at you, it seems to have more than ten thousand years of antiquity.", "You can see a little hole where you can see an Elixir, it seems to be magic, you'll have to investigate"));
+	rooms.pushback(new Room("Strange Room", "at the moment that you enter on this room, you get scared, but you don't know why. You only know that you want to scape from there as fast as possible.", "Now this rooms is twice as scaring as before, you don't find anything good by staying here more."));
+	rooms.pushback(new Room("Videogames' shop", "You always loved videogames, so this is like your paradise, you can see the shop assistant standing at the back of the shop. ", "The assistant of the shop now seems a giant (well, now he's a real giant for you), You better take care, you don't want he thinking that you're a bug."));
+	rooms.pushback(new Room("Secret Room 1", "In the center of the room you can see a sphinx, it seems that want to talk with you.", "Nothing new, except for the key that you now can see under one of the spinx's foot."));
+	rooms.pushback(new Room("A Kid's Room", "This place seems like a kid's room, it has a lot of toys. This room also its a bit creepy.", "This place seems a disney film now, you feel like in Toy Story. You also can see a key."));
+	rooms.pushback(new Room("Wooden house", "you enter in a wood hause that is exactly like the one of a book that you did read when you were a child.", "A small katana was there all the time, but you couldn't see it. It's better having a weapon in this times."));
+	rooms.pushback(new Room("Frozen Lake", "You can see a enormous frozen lake that could kill you if you were inside it in like 5 seconds.You'll prefer to take care with it.", "You can feel yourself freezing for the cold of the ice. You're too small so the ice and the cold has frozen your body. "));
+	rooms.pushback(new Room("Beach", "You arrive at the beach, the sun reinforces you, it helps you to recover your forces.", "At the moment you Shrink, you get trapped by the sand and go to a room that was under the sand."));
+	rooms.pushback(new Room("Secret Room 2", "In the center of the room you can see a sphinx, it seems that want to talk with you.", "Don't seems to be nothing new here."));
 	
 
 	exits.pushback(new Exit("Cave", "You can see a door that enters into darkness.", rooms[1], rooms[0], south, false, true));
@@ -106,6 +106,10 @@ void World::Movement(int &pos, Vector<String> &commands)
 								
 							}
 							else {
+								if (player->player_pos == rooms[8]){
+									printf("\n\t%s\n%s\n\n", rooms[y]->name.c_str(), rooms[y]->ShrinkDesc.c_str());
+									Die();
+								}
 								printf("\n\t%s\n%s", rooms[y]->name.c_str(), rooms[y]->ShrinkDesc.c_str());
 								printf("\nItems you can find here:\n\n");
 								for (i = 0; i < NUM_ITEMS; i++)
@@ -162,6 +166,10 @@ void World::Movement(int &pos, Vector<String> &commands)
 								return;
 							}
 							else {
+								if (player->player_pos == rooms[0]){
+									printf("\n\t%s\n%s\n\n", rooms[y]->name.c_str(), rooms[y]->ShrinkDesc.c_str());
+									Die();
+								}
 								printf("\n\t%s\n%s", rooms[y]->name.c_str(), rooms[y]->ShrinkDesc.c_str());
 								printf("\n\nItems you can find here:\n\n");
 								for (i = 0; i < NUM_ITEMS; i++)
@@ -358,6 +366,7 @@ void World::Movement(int &pos, Vector<String> &commands)
 		{
 			if (exits[i]->src == player->player_pos && exits[i]->direction == up && player->shrink == false)
 			{
+				
 				player->player_pos = exits[i]->dst;
 				for (y = 0; y < NUM_ROOMS; y++)
 				{
@@ -817,6 +826,15 @@ void World::Shrink(){
 	if (player->shrink == true){
 		printf("You're shrinked, you won't shrink more, don't try it.");
 	}
+	else if (player->player_pos == rooms[8]){
+		printf("%s\n", rooms[8]->ShrinkDesc.c_str());
+		Die();
+	}
+	else if (player->player_pos == rooms[9]){
+		printf("%s\n", rooms[9]->ShrinkDesc.c_str());
+		printf("\n\t%s\n%s", rooms[10]->name.c_str(), rooms[10]->description.c_str());
+		player->shrink = true;
+	}
 	else {
 		player->shrink = true;
 		printf("You can feel your body and all your pertenances shrinking with you.");
@@ -828,31 +846,71 @@ void World::Equip(Vector<String> &commands){
 		printf("you already have an equiped item. Try to unequip your equiped item first.");
 		return;
 	}
-	else{
-		for (uint i = 0; i < NUM_ITEMS; i++){
-			if (commands[1] == items[i]->name && items[i]->picked == true) {
-				player->equiped = true;
-				items[i]->equiped = true;
-				printf("you equiped %s.",items[i]->name.c_str());
-				return;
+	else {
+		if (commands[1] == "shovel" && items[6]->picked == true) {
+			player->equiped = true;
+			items[6]->equiped = true;
+			printf("You equiped %s", items[6]->name.c_str());
+			return;
 			}
-			else {
-				for (uint i = 0; i < NUM_ITEMS; i++){
-					if (commands[1] == items[i]->name){
-						printf("you don't have that in your inventory.");
-						return;
-					}
-					else printf("Pls, that's not even an item.");
-					return;
-				}
-			}
+		else if (commands[1] == "Book" && items[3]->picked == true) {
+			player->equiped = true;
+			items[3]->equiped = true;
+			printf("You equiped %s", items[3]->name.c_str());
+			return;
+		}
+		else if (commands[1] == "Uchigatana" && items[5]->picked == true) {
+			player->equiped = true;
+			items[5]->equiped = true;
+			printf("You equiped %s", items[5]->name.c_str());
+			return;
+		}
+		else if (commands[1] == "CD" && items[7]->picked == true) {
+			player->equiped = true;
+			items[7]->equiped = true;
+			printf("You equiped %s", items[7]->name.c_str());
+			return;
+		}
+		else if (commands[1] == "Cold" && items[4]->picked == true) {
+			player->equiped = true;
+			items[4]->equiped = true;
+			printf("You equiped %s", items[4]->name.c_str());
+			return;
+		}
+		else if (commands[1] == "Secret" && items[1]->picked == true) {
+			player->equiped = true;
+			items[1]->equiped = true;
+			printf("You equiped %s", items[1]->name.c_str());
+			return;
+		}
+		else if (commands[1] == "Second" && items[2]->picked == true) {
+			player->equiped = true;
+			items[2]->equiped = true;
+			printf("You equiped %s", items[2]->name.c_str());
+			return;
+		}
+		else if (commands[1] == "Elixir" && items[8]->picked == true) {
+			player->equiped = true;
+			items[8]->equiped = true;
+			printf("You equiped %s", items[8]->name.c_str());
+			return;
+		}
+		else if (commands[1] == "Shield" && items[0]->picked == true) {
+			player->equiped = true;
+			items[0]->equiped = true;
+			printf("You equiped %s", items[0]->name.c_str());
+			return;
 		}
 	}
 }
-
 void World::Grow(){
 	if (player->shrink == false){
 		printf("don't try to grow more, you have so much to live for.");
+	}
+	else if (player->player_pos == rooms[9] && player->shrink == true){
+		printf("At the moment you start to grow, you get through the sand and go again to the surface o the beach.\n");
+		printf("\n\t%s\n%s", rooms[9]->name.c_str(), rooms[9]->description.c_str());
+		player->shrink = false;
 	}
 	else {
 		player->shrink = false;
@@ -865,27 +923,68 @@ void World::Unequip(Vector<String> &commands){
 		printf("you don't have an item equiped.");
 		return;
 	}
-	else for (uint i = 0; i < NUM_ITEMS; i++){
-		if (commands[1] == items[i]->name && items[i]->equiped == true){
+	else {
+		if (commands[1] == "shovel" && items[6]->equiped == true) {
 			player->equiped = false;
-			items[i]->equiped = false;
-			printf("you unequiped %s", items[i]->name.c_str());
+			items[6]->equiped = false;
+			printf("You unequiped %s", items[6]->name.c_str());
 			return;
 		}
-		else {
-			for (uint i = 0; i < NUM_ITEMS; i++){
-				if (commands[1] == items[i]->name){
-					printf("you don't have that item equiped.");
-					return;
-				}
-				else printf("Pls, that's not even an item.");
-				return;
-			}
-			
+		else if (commands[1] == "Book" && items[3]->equiped == true) {
+			player->equiped = false;
+			items[3]->equiped = false;
+			printf("You unequiped %s", items[3]->name.c_str());
+			return;
+		}
+		else if (commands[1] == "Uchigatana" && items[5]->equiped == true) {
+			player->equiped = false;
+			items[5]->equiped = false;
+			printf("You unequiped %s", items[5]->name.c_str());
+			return;
+		}
+		else if (commands[1] == "CD" && items[7]->equiped == true) {
+			player->equiped = false;
+			items[7]->equiped = false;
+			printf("You unequiped %s", items[7]->name.c_str());
+			return;
+		}
+		else if (commands[1] == "Cold" && items[4]->equiped == true) {
+			player->equiped = false;
+			items[4]->equiped = false;
+			printf("You unequiped %s", items[4]->name.c_str());
+			return;
+		}
+		else if (commands[1] == "Secret" && items[1]->equiped == true) {
+			player->equiped = false;
+			items[1]->equiped = false;
+			printf("You unequiped %s", items[1]->name.c_str());
+			return;
+		}
+		else if (commands[1] == "Second" && items[2]->equiped == true) {
+			player->equiped = false;
+			items[2]->equiped = false;
+			printf("You unequiped %s", items[2]->name.c_str());
+			return;
+		}
+		else if (commands[1] == "Elixir" && items[8]->equiped == true) {
+			player->equiped = false;
+			items[8]->equiped = false;
+			printf("You unequiped %s", items[8]->name.c_str());
+			return;
+		}
+		else if (commands[1] == "Shield" && items[0]->equiped == true) {
+			player->equiped = false;
+			items[0]->equiped = false;
+			printf("You unequiped %s", items[0]->name.c_str());
+			return;
 		}
 	}
 
-
+}
+void World::Die() const{
+	printf("You died, Try again soon <3.");
+	getchar();
+	exit(0);
 }
 
 

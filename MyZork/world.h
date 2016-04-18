@@ -46,6 +46,7 @@ public:
 	void Equip(Vector<String>&);
 	void Grow();
 	void Unequip(Vector<String> &commands);
+	void Die() const;
 	~World();
 };
 
