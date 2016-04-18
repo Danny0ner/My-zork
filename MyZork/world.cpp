@@ -45,7 +45,7 @@ void World::CreateWorld()
 	exits.pushback(new Exit("Beach", "The stairs goes back to the beach.", rooms[10], rooms[9], up, false, true));
 	exits.pushback(new Exit("Secret Room 2", "There is a trapdoor under your feet.Seems that you can go for there.", rooms[9], rooms[10], down, false, true));
 
-	items.pushback(new Item("shield", "item 1", rooms[7],false, false, false));
+	items.pushback(new Item("shield", "Seems to be a nice shield, it has the triforce simbol on it.", rooms[7],false, false, false));
 	items.pushback(new Item("Secret Key", "This key has a triforce grabbed on it", rooms[6], false, true, false));
 	items.pushback(new Item("Second Secret Key", "item 3", rooms[5], false, true, false));
 	items.pushback(new Item("Book of Miracles", "This book have a name weitten with a pencil     'Ganondorf'.", rooms[3], false, false, false));
@@ -812,7 +812,7 @@ void World::Inventory() const
 		{
 			if (items[i]->picked == true)
 			{
-				printf("%s\n%s\n", items[i]->name.c_str(), items[i]->description.c_str());
+				printf("%s -%s\n", items[i]->name.c_str(), items[i]->description.c_str());
 			}
 		}
 	}
