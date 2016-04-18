@@ -4,10 +4,10 @@
 #include"world.h"
 
 
-int GetCommand(Vector<MyString>&commands)
+int GetCommand(Vector<String>&commands)
 {
 
-	if (commands[0] == "go")
+	if (commands[0] == "go" || commands[0] == "north")
 	{
 		return Move;
 	}
@@ -29,8 +29,6 @@ int GetCommand(Vector<MyString>&commands)
 	{
 		return Pick;
 	}
-
-
 	else if (commands[0] == "drop")
 	{
 		return Drop;
@@ -68,7 +66,4 @@ int GetCommand(Vector<MyString>&commands)
 	{
 		return Invalid_command;
 	}
-
-
-
 }

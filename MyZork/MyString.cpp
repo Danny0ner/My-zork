@@ -5,7 +5,7 @@
 
 
 
-MyString::MyString()
+String::String()
 {
 	max_size = 1;
 	buffer = new char[max_size];
@@ -13,7 +13,7 @@ MyString::MyString()
 
 }
 
-MyString::MyString(const char *string)
+String::String(const char *string)
 {
 	uint len = strlen(string);
 	buffer = new char[len + 1];
@@ -21,7 +21,7 @@ MyString::MyString(const char *string)
 	strcpy_s(buffer, max_size, string);
 	
 }
-MyString::MyString(const MyString &other)
+String::String(const String &other)
 {
 	max_size = other.max_size;
 	buffer = new char[max_size];
@@ -29,49 +29,49 @@ MyString::MyString(const MyString &other)
 
 }
 
-MyString::~MyString()
+String::~String()
 {
 	delete[] buffer;
 }
 
 
-const char* MyString:: c_str() const
+const char* String:: c_str() const
 {
 	return buffer;
 }
 
 
-uint MyString::length() const
+uint String::length() const
 {
 	return strlen(buffer);
 }
 
 
-const uint MyString::capacity() const
+const uint String::capacity() const
 {
 	return max_size;
 }
 
 
-bool MyString::empty()const
+bool String::empty()const
 {
 	return buffer[0] == 0;
 }
 
 
-bool MyString::operator==(const MyString &other) const
+bool String::operator==(const String &other) const
 {
 	return _stricmp(buffer, other.buffer) == 0;
 }
 
 
-bool MyString::operator==(const char *string) const
+bool String::operator==(const char *string) const
 {
 	return _stricmp(buffer, string) == 0;
 }
 
 
-void MyString::operator=(const MyString &other)
+void String::operator=(const String &other)
 {
 	if (max_size < other.length() + 1)
 	{
@@ -82,7 +82,7 @@ void MyString::operator=(const MyString &other)
 	strcpy_s(buffer, max_size, other.buffer);
 }
 
-void MyString::operator=(const char *other)
+void String::operator=(const char *other)
 {
 	unsigned int len = strlen(other);
 	if (max_size < len + 1)
@@ -95,7 +95,7 @@ void MyString::operator=(const char *other)
 }
 
 
-void MyString::operator+=(const MyString &other)
+void String::operator+=(const String &other)
 {
 	char *temp = nullptr;
 
@@ -115,9 +115,9 @@ void MyString::operator+=(const MyString &other)
 }
 
 
-MyString MyString::operator+(const MyString &other) const
+String String::operator+(const String &other) const
 {
-	MyString newstring;
+	String newstring;
 	newstring.max_size = length() + other.length() + 1;
 	newstring.buffer = new char[newstring.max_size];
 	strcpy_s(newstring.buffer, newstring.max_size, buffer);
@@ -126,12 +126,12 @@ MyString MyString::operator+(const MyString &other) const
 }
 
 
-void MyString::clear()
+void String::clear()
 {
 	strcpy_s(buffer, max_size, "");
 }
 
-void MyString::shrink_to_fit()
+void String::shrink_to_fit()
 {
 	if (max_size != length() + 1)
 	{
@@ -144,10 +144,10 @@ void MyString::shrink_to_fit()
 	}
 }
 
-Vector<MyString> MyString::SplitString(const char *symbol, char* command)
+Vector<String> String::TokenizeV2(const char *symbol, char* command)
 {
-	Vector<MyString> vec;
-	char *cstr, *p, *context;
+	Vector<String> vector;
+	char *cstr, *y, *context;
 
 	
 	uint len = strlen(command);
@@ -155,14 +155,14 @@ Vector<MyString> MyString::SplitString(const char *symbol, char* command)
 	strcpy_s(cstr, len + 1, command);
 	
 
-	p = strtok_s(cstr, symbol, &context);
-	while (p != NULL)
+	y = strtok_s(cstr, symbol, &context);
+	while (y != NULL)
 	{
-		vec.pushback(p);
-		p = strtok_s(NULL, symbol, &context);
+		vector.pushback(y);
+		y = strtok_s(NULL, symbol, &context);
 	}
 	delete[] cstr;
-	return vec;
+	return vector;
 }
 
 

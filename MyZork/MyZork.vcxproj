@@ -17,7 +17,6 @@
     <ClCompile Include="items.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MyString.cpp" />
-    <ClCompile Include="player.cpp" />
     <ClCompile Include="rooms.cpp" />
     <ClCompile Include="world.cpp" />
   </ItemGroup>

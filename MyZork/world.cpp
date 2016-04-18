@@ -32,7 +32,7 @@ void World::CreateWorld()
 	exits.pushback(new Exit("Garden", "at the entrance of the shop you can see a garden.", rooms[4], rooms[1], south, false, true));
 	exits.pushback(new Exit("Videogames' Shop", "At the end of the garden you can see a videogames' shop.", rooms[1], rooms[4], north, false, true));
 	exits.pushback(new Exit("Videogames' Shop", "The stairs go down to the videogames' Shop.", rooms[5], rooms[4], down, false, true));
-	exits.pushback(new Exit("Secret Room 1", "You can see a stairs that go up to the attic.", rooms[4], rooms[5], up, false, true));
+	exits.pushback(new Exit("Secret Room 1", "You can see a stairs that go up to the attic.", rooms[4], rooms[5], up, true, false));
 	exits.pushback(new Exit("Temple", "you can see light at the end of the path.", rooms[0], rooms[2], east, false, true));
 	exits.pushback(new Exit("Temple", "there's a door to exit this room.", rooms[3], rooms[2], west, false, true));
 	exits.pushback(new Exit("Strange Room", "There's a strange door right there.", rooms[2], rooms[3], east, false, true));
@@ -45,15 +45,15 @@ void World::CreateWorld()
 	exits.pushback(new Exit("Beach", "The stairs goes back to the beach.", rooms[10], rooms[9], up, false, true));
 	exits.pushback(new Exit("Secret Room 2", "There is a trapdoor under your feet.Seems that you can go for there.", rooms[9], rooms[10], down, false, true));
 
-	items.pushback(new Item("shield", "item 1", rooms[0],false, false, false));
-	items.pushback(new Item("Item2", "item 2", rooms[0], false, false, false));
-	items.pushback(new Item("Item3", "item 3", rooms[0], false, false, false));
-	items.pushback(new Item("Item4", "item 4", rooms[0], false, false, false));
-	items.pushback(new Item("Item5", "item 5", rooms[0], false, false, false));
-	items.pushback(new Item("Item6", "item 6", rooms[0], false, false, false));
-	items.pushback(new Item("Item7", "item 7", rooms[0], false, false, false));
-	items.pushback(new Item("Item8", "item 8", rooms[0], false, false, false));
-	items.pushback(new Item("Item9", "item 9", rooms[0], false, false, false));
+	items.pushback(new Item("shield", "item 1", rooms[7],false, false, false));
+	items.pushback(new Item("Secret Key", "This key has a triforce grabbed on it", rooms[6], false, true, false));
+	items.pushback(new Item("Second Secret Key", "item 3", rooms[5], false, true, false));
+	items.pushback(new Item("Book of Miracles", "This book have a name weitten with a pencil     'Ganondorf'.", rooms[3], false, false, false));
+	items.pushback(new Item("Cold Spaghetti", "Someone thinks that he's good cooking, but he isn't.", rooms[8], false, false, false));
+	items.pushback(new Item("Uchigatana", "This have been appearing in the whole dark souls saga, I love it <3.", rooms[7], false, true, false));
+	items.pushback(new Item("Shovel", "An old rusty shovel that belonged to a knight for a long time. ", rooms[1], false, false, false));
+	items.pushback(new Item("CD", "It's the CD of Kingdom Hearts 3. All the lovers of that saga would want to have it.", rooms[9], false, false, false));
+	items.pushback(new Item("Elixir", "The walls of this temple says that this elixir could make you inmortal. You should keep it safe.", rooms[2], false, true, false));
 	
 
 }
@@ -61,7 +61,7 @@ void World::CreateWorld()
 
 
 /* MOVEMENT FUNCTION */
-void World::Movement(int &pos, Vector<MyString> &commands)
+void World::Movement(int &pos, Vector<String> &commands)
 {
 	fflush(stdin);
 
@@ -90,10 +90,33 @@ void World::Movement(int &pos, Vector<MyString> &commands)
 							pos = y;
 							if (player->shrink == false){
 								printf("\n\t%s\n%s", rooms[y]->name.c_str(), rooms[y]->description.c_str());
+								printf("\nItems you can find here:\n\n");
+								for (i = 0; i < NUM_ITEMS; i++)
+								{
+									if (player->player_pos == items[i]->src && items[i]->picked == false)
+									{
+										if (player->shrink == items[i]->shrink){
+											items[i]->Look();
+										}
+									}
+								
+									
+								}
 								return;
+								
 							}
 							else {
 								printf("\n\t%s\n%s", rooms[y]->name.c_str(), rooms[y]->ShrinkDesc.c_str());
+								printf("\nItems you can find here:\n\n");
+								for (i = 0; i < NUM_ITEMS; i++)
+								{
+									if (player->player_pos == items[i]->src && items[i]->picked == false)
+									{
+										if (player->shrink == items[i]->shrink){
+											items[i]->Look();
+										}
+									}
+								}
 								return;
 							}
 						}
@@ -125,10 +148,31 @@ void World::Movement(int &pos, Vector<MyString> &commands)
 							pos = y;
 							if (player->shrink == false){
 								printf("\n\t%s\n%s", rooms[y]->name.c_str(), rooms[y]->description.c_str());
+								printf("\n\nItems you can find here:\n\n");
+								for (i = 0; i < NUM_ITEMS; i++)
+								{
+									if (player->player_pos == items[i]->src && items[i]->picked == false)
+									{
+										if (player->shrink == items[i]->shrink){
+											items[i]->Look();
+										}
+									}
+									
+								}	
 								return;
 							}
 							else {
 								printf("\n\t%s\n%s", rooms[y]->name.c_str(), rooms[y]->ShrinkDesc.c_str());
+								printf("\n\nItems you can find here:\n\n");
+								for (i = 0; i < NUM_ITEMS; i++)
+								{
+									if (player->player_pos == items[i]->src && items[i]->picked == false)
+									{
+										if (player->shrink == items[i]->shrink){
+											items[i]->Look();
+										}
+									}
+								}
 								return;
 							}
 						}
@@ -160,10 +204,32 @@ void World::Movement(int &pos, Vector<MyString> &commands)
 							pos = y;
 							if (player->shrink == false){
 								printf("\n\t%s\n%s", rooms[y]->name.c_str(), rooms[y]->description.c_str());
+								printf("\n\nItems you can find here:\n\n");
+								for (i = 0; i < NUM_ITEMS; i++)
+								{
+									if (player->player_pos == items[i]->src && items[i]->picked == false)
+									{
+										if (player->shrink == items[i]->shrink){
+											items[i]->Look();
+										}
+									}
+
+								}
 								return;
 							}
 							else {
 								printf("\n\t%s\n%s", rooms[y]->name.c_str(), rooms[y]->ShrinkDesc.c_str());
+								printf("\n\nItems you can find here:\n\n");
+								for (i = 0; i < NUM_ITEMS; i++)
+								{
+									if (player->player_pos == items[i]->src && items[i]->picked == false)
+									{
+										if (player->shrink == items[i]->shrink){
+											items[i]->Look();
+										}
+									}
+							
+								}
 								return;
 							}
 						}
@@ -195,10 +261,32 @@ void World::Movement(int &pos, Vector<MyString> &commands)
 							pos = y;
 							if (player->shrink == false){
 								printf("\n\t%s\n%s", rooms[y]->name.c_str(), rooms[y]->description.c_str());
+								printf("\n\nItems you can find here:\n\n");
+								for (i = 0; i < NUM_ITEMS; i++)
+								{
+									if (player->player_pos == items[i]->src && items[i]->picked == false)
+									{
+										if (player->shrink == items[i]->shrink){
+											items[i]->Look();
+										}
+									}
+									
+								}
 								return;
 							}
 							else {
 								printf("\n\t%s\n%s", rooms[y]->name.c_str(), rooms[y]->ShrinkDesc.c_str());
+								printf("\n\nItems you can find here:\n\n");
+								for (i = 0; i < NUM_ITEMS; i++)
+								{
+									if (player->player_pos == items[i]->src && items[i]->picked == false)
+									{
+										if (player->shrink == items[i]->shrink){
+											items[i]->Look();
+										}
+									}
+									
+								}
 								return;
 							}
 						}
@@ -229,10 +317,31 @@ void World::Movement(int &pos, Vector<MyString> &commands)
 						{
 							if (player->shrink == false){
 								printf("\n\t%s\n%s", rooms[y]->name.c_str(), rooms[y]->description.c_str());
+								printf("\n\nItems you can find here:\n\n");
+								for (i = 0; i < NUM_ITEMS; i++)
+								{
+									if (player->player_pos == items[i]->src && items[i]->picked == false)
+									{
+										if (player->shrink == items[i]->shrink){
+											items[i]->Look();
+										}
+									}
+									
+								}
 								return;
 							}
 							else {
 								printf("\n\t%s\n%s", rooms[y]->name.c_str(), rooms[y]->ShrinkDesc.c_str());
+								printf("\n\nItems you can find here:\n\n");
+								for (i = 0; i < NUM_ITEMS; i++)
+								{
+									if (player->player_pos == items[i]->src && items[i]->picked == false)
+									{
+										if (player->shrink == items[i]->shrink){
+											items[i]->Look();
+										}
+									}
+								}
 								return;
 							}
 						}
@@ -259,11 +368,38 @@ void World::Movement(int &pos, Vector<MyString> &commands)
 							printf("\nThere's a door locked here.\n");
 							return;
 						}
-						else
+						else 
 						{
 							pos = y;
-							printf("\n\t%s\n%s\n", rooms[y]->name.c_str(), rooms[y]->description.c_str());
-							return;
+							if (player->shrink == false){
+								printf("\n\t%s\n%s", rooms[y]->name.c_str(), rooms[y]->description.c_str());
+								printf("\n\nItems you can find here:\n\n");
+								for (i = 0; i < NUM_ITEMS; i++)
+								{
+									if (player->player_pos == items[i]->src && items[i]->picked == false)
+									{
+										if (player->shrink == items[i]->shrink){
+											items[i]->Look();
+										}
+									}
+									
+								}
+								return;
+							}
+							else {
+								printf("\n\t%s\n%s", rooms[y]->name.c_str(), rooms[y]->ShrinkDesc.c_str());
+								printf("\n\nItems you can find here:\n\n");
+								for (i = 0; i < NUM_ITEMS; i++)
+								{
+									if (player->player_pos == items[i]->src && items[i]->picked == false)
+									{
+										if (player->shrink == items[i]->shrink){
+											items[i]->Look();
+										}
+									}
+								}
+								return;
+							}
 						}
 					}
 				}
@@ -284,7 +420,7 @@ void World::Movement(int &pos, Vector<MyString> &commands)
 	}
 }
 
-void World::Look(int pos, Vector<MyString> &commands) const
+void World::Look(int pos, Vector<String> &commands) const
 {
 	int i; //Countes to consider the correct room/exit when you are looking
 	player->player_pos = rooms[pos];
@@ -369,13 +505,20 @@ void World::Look(int pos, Vector<MyString> &commands) const
 
 	else
 	{
-		rooms[pos]->Look();
+		if (player->shrink == false){
+			rooms[pos]->Look();
+		}
+		if (player->shrink == true){
+			rooms[pos]->LookShrink();
+		}
+		printf("\n\nItems you can find here:\n");
 		for (i = 0; i < NUM_ITEMS; i++)
 		{
 			if (player->player_pos == items[i]->src && items[i]->picked == false)
 			{
-				printf("\nItems you can find here:\n");
-				items[i]->Look();
+				if (player->shrink == items[i]->shrink){
+					items[i]->Look();
+				}
 			}
 		}
 	}
@@ -388,7 +531,7 @@ void World::Help() const
 
 
 
-void World::Open(int pos, Vector<MyString>&commands) const
+void World::Open(int pos, Vector<String>&commands) const
 {
 	int i;  
 	player->player_pos = rooms[pos];
@@ -453,7 +596,17 @@ void World::Open(int pos, Vector<MyString>&commands) const
 	{
 		for (i = 0; i < NUM_EXITS; i++)
 		{
-			if (exits[i]->src == player->player_pos && exits[i]->direction == up && exits[i]->open == false)
+			if (exits[i]->src == rooms[4] && items[1]->picked == true)
+			{
+				exits[i]->open = true;
+				printf("\nYou opened the door.\n");
+				return;
+			}
+			else if (exits[i]->src == rooms[4] && items[1]->picked == false){
+				printf("Seems that you won't open this door without a key.\n");
+				return;
+			}
+			else if (exits[i]->src == player->player_pos && exits[i]->direction == up && exits[i]->open == false && player->player_pos != rooms[4])
 			{
 				exits[i]->open = true;
 				printf("\nYou opened the door.\n");
@@ -485,7 +638,7 @@ void World::Open(int pos, Vector<MyString>&commands) const
 }
 
 
-void World::Close(int pos, Vector<MyString> &commands) const
+void World::Close(int pos, Vector<String> &commands) const
 {
 	int i;
 	player->player_pos = rooms[pos];
@@ -578,20 +731,44 @@ void World::Close(int pos, Vector<MyString> &commands) const
 }
 
 
-void World::Pick(Vector<MyString> &commands)
+void World::Pick(Vector<String> &commands)
 {
 	for (int i = 0; i < NUM_ITEMS; i++)
 	{
-		if (commands.size() == 2 && commands[1] == items[i]->name && items[i]->src == player->player_pos && items[i]->picked == false)
+		if (commands[1] == "Cold" && items[i]->src == player->player_pos && items[i]->picked == false){
+			if (player->shrink == items[i]->shrink){
+				items[i]->picked = true;
+				printf("You picked %s\n", items[i]->name.c_str());
+				return;
+			}
+		}
+		else if (commands[1] == "Second" && items[i]->src == player->player_pos && items[i]->picked == false){
+			if (player->shrink == items[i]->shrink){
+				items[i]->picked = true;
+				printf("You picked %s\n", items[i]->name.c_str());
+				return;
+			}
+		}
+		else if (commands[1] == "Book" && items[i]->src == player->player_pos && items[i]->picked == false){
+			if (player->shrink == items[i]->shrink){
+				items[i]->picked = true;
+				printf("You picked %s\n", items[i]->name.c_str());
+				return;
+			}
+		}
+		else if (commands[1] == "Secret" && items[i]->src == player->player_pos && items[i]->picked == false){
+			if (player->shrink == items[i]->shrink){
+				items[i]->picked = true;
+				printf("You picked %s\n", items[i]->name.c_str());
+				return;
+			}
+		}
+		else if (commands.size() == 2 && commands[1] == items[i]->name && items[i]->src == player->player_pos && items[i]->picked == false)
 		{
 			if (player->shrink == items[i]->shrink){
 				items[i]->picked = true;
 				player->num_items++;
 				printf("You picked %s\n", items[i]->name.c_str());
-				return;
-			}
-			else {
-				printf("There's any object with that name here.\n");
 				return;
 			}
 		}
@@ -600,7 +777,7 @@ void World::Pick(Vector<MyString> &commands)
 }
 
 
-void World::Drop(Vector<MyString> &commands)
+void World::Drop(Vector<String> &commands)
 {
 	for (int i = 0; i < NUM_ITEMS; i++)
 	{
@@ -646,7 +823,7 @@ void World::Shrink(){
 	}
 }
 
-void World::Equip(Vector<MyString> &commands){
+void World::Equip(Vector<String> &commands){
 	if (player->equiped == true){
 		printf("you already have an equiped item. Try to unequip your equiped item first.");
 		return;
@@ -683,7 +860,7 @@ void World::Grow(){
 	}
 
 }
-void World::Unequip(Vector<MyString> &commands){
+void World::Unequip(Vector<String> &commands){
 	if (player->equiped == false){
 		printf("you don't have an item equiped.");
 		return;

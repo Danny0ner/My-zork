@@ -6,11 +6,12 @@
 class Room:public Entity
 {
 public:
-	MyString ShrinkDesc;
+	String ShrinkDesc;
 	Room(const char*,const char*, const char*);
+
 	
 	void Look()const;
-	
+	void LookShrink() const;
 };
 
 #endif

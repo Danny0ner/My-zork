@@ -7,10 +7,10 @@ class Entity
 {
 public:
 
-	MyString name;
-	MyString description;
+	String name;
+	String description;
 	Entity(const char*,const char*);
-
+	virtual ~Entity(){}
 	virtual void Look() const{};
 
 };

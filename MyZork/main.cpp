@@ -15,17 +15,16 @@ int main()
 
 	printf("\tCave\nYou can't see very much, but it seems to be an aquamarine cave.\n\n");
 	
-	MyString option;
+	String option;
 	char command[70];
 	int position = 0; 
 
 	while (1){
-		fflush(stdin);
-		printf("\n\n> ");
+		printf("\n\n- ");
 		gets_s(command, 70);
 		if (command[0] != NULL && command[0] != ' ')
 		{
-			Vector<MyString> commands = option.SplitString(" ", command);
+			Vector<String> commands = option.TokenizeV2(" ", command);
 
 				if (GetCommand(commands) == Move)         map.Movement(position, commands);
 

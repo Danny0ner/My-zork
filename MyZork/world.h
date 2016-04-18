@@ -34,18 +34,18 @@ public:
 	World();
 
 	void CreateWorld();
-	void Movement(int&, Vector<MyString>&);
-	void Look(int, Vector<MyString>&) const;
+	void Movement(int&, Vector<String>&);
+	void Look(int, Vector<String>&) const;
 	void Help() const;
-	void Open(int, Vector<MyString>&) const;
-	void Close(int, Vector<MyString>&) const;
-	void Pick(Vector<MyString>&);
-	void Drop(Vector<MyString>&);
+	void Open(int, Vector<String>&) const;
+	void Close(int, Vector<String>&) const;
+	void Pick(Vector<String>&);
+	void Drop(Vector<String>&);
 	void Inventory() const;
 	void Shrink();
-	void Equip(Vector<MyString>&);
+	void Equip(Vector<String>&);
 	void Grow();
-	void Unequip(Vector<MyString> &commands);
+	void Unequip(Vector<String> &commands);
 	~World();
 };
 

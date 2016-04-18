@@ -1,5 +1,5 @@
-#ifndef _MYSTRING_
-#define _MYSTRING_
+#ifndef _String_
+#define _String_
 
 #include<string.h>
 #include<stdio.h>
@@ -8,7 +8,7 @@
 
 typedef unsigned int uint;
 
-class MyString
+class String
 {
 private:
 
@@ -18,10 +18,10 @@ private:
 public:
 
 
-	MyString();
-	MyString(const char *string);
-	MyString(const MyString &other);
-	~MyString();
+	String();
+	String(const char *string);
+	String(const String &other);
+	~String();
 
 
 
@@ -36,19 +36,19 @@ public:
 	
 	bool empty()const;
 
-	bool operator==(const MyString &other) const;
+	bool operator==(const String &other) const;
 
 
 	bool operator==(const char *string) const;
 
 
-	void operator=(const MyString &other);
+	void operator=(const String &other);
 	void operator=(const char *other);
 
-	void operator+=(const MyString &other);
+	void operator+=(const String &other);
 
 	
-	MyString operator+(const MyString &other) const;
+	String operator+(const String &other) const;
 
 
 	void clear();
@@ -56,11 +56,11 @@ public:
 	
 	void shrink_to_fit();
 
-	Vector<MyString> SplitString(const char *symbol, char* command);
+	Vector<String> TokenizeV2(const char *symbol, char* command);
 
 
 
 };
 
 
-#endif //MYSTRING
+#endif //String
